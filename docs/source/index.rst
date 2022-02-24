@@ -8,6 +8,9 @@ and offers a *simple* and *intuitive* API.
 Check out the :doc:`usage` section for further information, including
 how to :ref:`installation` the project.
 
+.. image:: https://badge.fury.io/py/github.svg
+    :target: https://badge.fury.io/py/github
+
 .. note::
 
    This project is under active development.
