@@ -15,7 +15,7 @@ how to :ref:`installation` the project.
 Contents
 --------
 
-.. toctree::
+.. toctree:: generated :: katonic
 
    usage
    ai

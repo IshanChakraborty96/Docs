@@ -2,7 +2,7 @@ API
 ===
 
 .. autosummary::
-   :toctree: generated
+   :toctree: generated : katonic : ml
 
    lumache
    ml
