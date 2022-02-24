@@ -12,14 +12,11 @@ how to :ref:`installation` the project.
 
    This project is under active development.
 
---------
-Contents
---------
-
 .. toctree::
    :maxdepth: 2
-   :caption: Overview
+   :caption: Contents
 
+   Pages/usage
    Pages/api
    Pages/Getiing Started with Katonic_ai
 
