@@ -1,13 +1,19 @@
 # Configuration file for the Sphinx documentation builder.
 
+import os
+import sys
+sys.path.insert(0, os.path.abspath('..'))
+mport sphinx_theme_pd
+html_theme = 'sphinx_theme_pd'
+
 # -- Project information
 
 project = 'Katonic'
 copyright = '2020, Katonic'
 author = 'Katonic'
 
-release = '0.1'
-version = '0.1.0'
+release = '1.0.0'
+version = '1.0.1'
 
 # -- General configuration
 
@@ -18,6 +24,16 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
 ]
+
+]
+# Add any paths that contain templates here, relative to this directory.
+templates_path = ['_templates']
+
+# List of patterns, relative to source directory, that match files and
+# directories to ignore when looking for source files.
+# This pattern also affects html_static_path and html_extra_path.
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+
 
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3/', None),
@@ -39,8 +55,8 @@ master_doc = 'index'
 # -- Options for HTML output
 
 # import sphinx_theme_pd
-#html_theme = 'sphinx_theme_pd'
-#html_theme_path = [sphinx_theme_pd.get_html_theme_path()]
+html_theme = 'sphinx_theme_pd'
+
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
