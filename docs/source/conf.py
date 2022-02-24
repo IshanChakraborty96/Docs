@@ -38,6 +38,7 @@ master_doc = 'index'
 
 # -- Options for HTML output
 
+import sphinx_theme_pd
 html_theme = 'sphinx_theme_pd'
 html_theme_path = [sphinx_theme_pd.get_html_theme_path()]
 
