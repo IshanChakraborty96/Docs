@@ -17,9 +17,9 @@ Contents
 
 .. toctree::
 
-   usage
-   api
-   Katonic main
+  * usage
+  * api
+  * Getiing Started with Katonic_ai
 
 Links
 =====
