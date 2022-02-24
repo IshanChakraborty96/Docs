@@ -20,3 +20,12 @@ Contents
    usage
    api
    Katonic main
+
+Links
+=====
+
+* :ref:`search`
+* Sign Up : https://katonic.ai/pricing.html
+* Home page: https://katonic.ai/
+* Source code: https://github.com/katonic-dev/Katonic-ML-Marketplace
+* Contact: ishan.chakraborty@katonic.ai
