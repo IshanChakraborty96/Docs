@@ -1,7 +1,7 @@
 Welcome to Katonic.ai documentation!
 ===================================
 
-**Katonic** (/lu'make/) is a Ml AI Company Platform.
+**Katonic** (/Katonic/) is a Ml AI Company Platform.
 Katonic Helps you to run ML model run into piprlines  <https://world.openfoodfacts.org/>`_
 and offers a *simple* and *intuitive* API.
 
@@ -20,4 +20,4 @@ Contents
    usage
    Ml
    api
-
+   AI
