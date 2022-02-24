@@ -18,4 +18,6 @@ Contents
 .. toctree::
 
    usage
+   Ml
    api
+
