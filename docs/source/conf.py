@@ -3,7 +3,7 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
-mport sphinx_theme_pd
+import sphinx_theme_pd
 html_theme = 'sphinx_theme_pd'
 
 # -- Project information
