@@ -1,5 +1,5 @@
 # Configuration file for the Sphinx documentation builder.
-pip install sphinx-theme-pd
+# pip install sphinx-theme-pd
 
 
 
