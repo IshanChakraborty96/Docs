@@ -1,4 +1,4 @@
-Katonic.ai
+Katonic.ai Main
 ===
 
 .. autosummary::
