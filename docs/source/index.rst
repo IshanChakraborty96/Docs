@@ -22,10 +22,8 @@ Contents
 
    Pages/api
    Pages/Getiing Started with Katonic_ai
-   
-   
 
-
+ 
 Links
 =====
 
