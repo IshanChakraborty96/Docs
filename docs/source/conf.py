@@ -1,10 +1,5 @@
 # Configuration file for the Sphinx documentation builder.
 
-import os
-import sys
-sys.path.insert(0, os.path.abspath('..'))
-import sphinx_theme_pd
-html_theme = 'sphinx_theme_pd'
 
 # -- Project information
 
@@ -54,7 +49,7 @@ master_doc = 'index'
 # -- Options for HTML output
 
 # import sphinx_theme_pd
-html_theme = 'sphinx_theme_pd'
+#html_theme = 'sphinx_theme_pd'
 
 
 # -- Options for EPUB output
