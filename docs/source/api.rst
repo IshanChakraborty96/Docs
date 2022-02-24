@@ -4,5 +4,5 @@ API
 .. autosummary::
    :toctree: generated
 
-   lumache
-   Katonic main
+  * lumache
+  * Getting Started with Katonic.ai
