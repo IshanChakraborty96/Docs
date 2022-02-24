@@ -41,9 +41,9 @@ master_doc = 'index'
 
 # -- Options for HTML output
 
-import sphinx_theme_pd
+# import sphinx_theme_pd
 html_theme = 'sphinx_theme_pd'
-html_theme_path = [sphinx_theme_pd.get_html_theme_path()]
+# html_theme_path = [sphinx_theme_pd.get_html_theme_path()]
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
