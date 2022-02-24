@@ -5,5 +5,6 @@ API
    :toctree: generated
 
    lumache
-   Ml
-   AI
+   ml
+   ai
+   katonic

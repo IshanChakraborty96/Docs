@@ -18,6 +18,6 @@ Contents
 .. toctree::
 
    usage
-   Ml
-   api
-   AI
+   ai
+   ml
+   katonic

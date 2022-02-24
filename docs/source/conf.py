@@ -3,8 +3,8 @@
 # -- Project information
 
 project = 'Katonic'
-copyright = '2020, Graziella'
-author = 'Graziella'
+copyright = '2020, Katonic'
+author = 'Katonic'
 
 release = '0.1'
 version = '0.1.0'
