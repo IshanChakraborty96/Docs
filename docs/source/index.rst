@@ -16,10 +16,8 @@ Contents
 --------
 
 .. toctree::
-
-  * usage
-  * api
-  * Getiing Started with Katonic_ai
+   :maxdepth: 2
+   :caption: Overview
 
 Links
 =====
