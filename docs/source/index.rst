@@ -22,6 +22,15 @@ how to :ref:`installation` the project.
    Pages/Architecture
    Pages/Kubernetes
    Pages/Installation
+   Pages/Configuration
+   Pages/Compute
+   Pages/Authentication
+   Pages/Operations
+   Pages/Data
+   Pages/Users
+   Pages/Environments
+   Pages/Disaster Recovery
+   Pages/Control Center
    Pages/api
 
  
