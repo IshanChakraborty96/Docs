@@ -55,6 +55,16 @@ master_doc = 'index'
 
 html_logo = "Logo.svg"
 
+.. tabs::
+
+   .. code-tab:: Katonic Website
+
+   Website : https://katonic.ai/
+
+
+
+
+
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
 
