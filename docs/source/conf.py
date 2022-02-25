@@ -3,9 +3,9 @@ from datetime import datetime
 
 # -- Project information
 
-project = 'Katonic'
-copyright = '2020, Katonic'
-author = 'Katonic'
+project = 'Katonic.ai'
+copyright = '2020, Katonic.ai'
+author = 'Katonic.ai'
 
 release = '1.0.0'
 version = '1.0.1'
@@ -18,6 +18,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
+    'sphinx_code_tabs',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -54,6 +55,10 @@ master_doc = 'index'
 #html_theme_options = {"navigation_depth": 2}
 
 html_logo = "Logo.svg"
+
+.. image:: https://readthedocs.org/projects/sphinx-code-tabs/badge/?version=latest
+:target: https://sphinx-code-tabs.readthedocs.io/en/latest/?badge=latest
+:alt: Documentation Status
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
