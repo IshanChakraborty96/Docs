@@ -9,8 +9,8 @@ Check out the :doc:`usage` section for further information, including
 how to :ref:`installation` the project.
 
 .. image:: https://readthedocs.org/projects/sphinx-code-tabs/badge/?version=latest
-:target: https://sphinx-code-tabs.readthedocs.io/en/latest/?badge=latest
-:alt: Documentation Status
+     :target: https://sphinx-code-tabs.readthedocs.io/en/latest/?badge=latest
+     :alt: Documentation Status
 
 .. image:: https://badge.fury.io/py/github.svg
     :target: https://badge.fury.io/py/github
