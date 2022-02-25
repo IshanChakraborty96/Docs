@@ -56,9 +56,7 @@ master_doc = 'index'
 
 html_logo = "Logo.svg"
 
-.. image:: https://readthedocs.org/projects/sphinx-code-tabs/badge/?version=latest
-     :target: https://sphinx-code-tabs.readthedocs.io/en/latest/?badge=latest
-     :alt: Documentation Status
+
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
