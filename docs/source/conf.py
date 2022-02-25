@@ -18,7 +18,6 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
-    'sphinx_code_tabs',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
