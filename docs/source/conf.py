@@ -49,9 +49,9 @@ master_doc = 'index'
 # -- Options for HTML output
 
 # import sphinx_theme_pd
-exclude_patterns = ["_build"]
-html_theme = "insegel"
-html_theme_options = {"navigation_depth": 2}
+#xclude_patterns = ["_build"]
+#html_theme = "insegel"
+#html_theme_options = {"navigation_depth": 2}
 
 html_logo = "Logo.svg"
 
