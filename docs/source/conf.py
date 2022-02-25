@@ -49,7 +49,7 @@ master_doc = 'index'
 # -- Options for HTML output
 
 # import sphinx_theme_pd
-#html_theme = 'sphinx_theme_pd'
+html_theme = 'press'
 
 
 # -- Options for EPUB output
