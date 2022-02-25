@@ -1,4 +1,5 @@
 # Configuration file for the Sphinx documentation builder.
+from datetime import datetime
 
 # -- Project information
 
@@ -48,8 +49,12 @@ master_doc = 'index'
 # -- Options for HTML output
 
 # import sphinx_theme_pd
-html_theme = 'press'
+exclude_patterns = ["_build"]
+html_theme = "insegel"
+html_theme_options = {"navigation_depth": 2}
 
+html_logo = "Logo.svg"
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
+
