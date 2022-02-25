@@ -1,4 +1,5 @@
 # Configuration file for the Sphinx documentation builder.
+$ pip install sphinx-press-theme
 
 
 # -- Project information
