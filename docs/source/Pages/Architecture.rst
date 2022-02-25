@@ -1,9 +1,8 @@
-Usage
+Architecture
 =====
 
-.. _installation:
 
-Installation
+Overview
 ------------
 
 To use Lumache, first install it using pip:
@@ -12,7 +11,7 @@ To use Lumache, first install it using pip:
 
    (.venv) $ pip install lumache
 
-Creating recipes
+Services
 ----------------
 
 To retrieve a list of random ingredients,
@@ -32,3 +31,11 @@ For example:
 >>> lumache.get_random_ingredients()
 ['shells', 'gorgonzola', 'parsley']
 
+Software
+----------------
+
+User accounts
+----------------
+
+Service mesh
+----------------

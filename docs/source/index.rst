@@ -19,9 +19,10 @@ how to :ref:`installation` the project.
    :maxdepth: 2
    :caption: Contents
 
-   Pages/usage
+   Pages/Architecture
+   Pages/Kubernetes
+   Pages/Installation
    Pages/api
-   Pages/Getiing Started with Katonic_ai
 
  
 Links
