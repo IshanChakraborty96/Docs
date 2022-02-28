@@ -34,9 +34,6 @@ For example:
 Software
 ----------------
 
-.. image:: images/about.png
-   :width: 600
-
 User accounts
 ----------------
 
