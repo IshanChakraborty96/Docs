@@ -1,11 +1,10 @@
-Welcome to Katonic.ai documentation!
+About Katonic 3.1
 ===================================
 
-**About Katonic 3.1 **
 Katonic MLOps platform is a Collaborative platform with a unified UI to manage all data science in one place. The Platform combines the creative scientific process of data scientists with the professional software engineering process to build and deploy Machine Learning Models into production safely, quickly, and in a sustainable way. 
 
 .. image:: Image/about.png
-  :width: 200
+  :width: 500
   :alt: [ Click to view full size ]
 
 .. toctree::
@@ -26,7 +25,7 @@ Katonic MLOps platform is a Collaborative platform with a unified UI to manage a
    Pages/Control Center
    Pages/api
 
-All Katonic components run in Kubernetes. You can run an instance of Katonic in the cloud or on-premises in your office or data center. 
+All Katonic components run in Kubernetes :ref:`https://kubernetes.io/'. You can run an instance of Katonic in the cloud or on-premises in your office or data center. 
 
 Links
 =====
