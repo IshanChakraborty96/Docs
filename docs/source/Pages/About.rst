@@ -6,7 +6,6 @@ Katonic MLOps platform is a Collaborative platform with a unified UI to manage a
 
 .. image:: Image/about_image.png
   :width: 600
-  :alt: [ Click to view full size ]
 
 [ Click to view full size ]  
 
