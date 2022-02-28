@@ -5,9 +5,9 @@ Katonic MLOps platform is a Collaborative platform with a unified UI to manage a
 
 .. image:: Image/about.png
   :width: 600
-  :alt: about katonic
+  :alt: [ Click to view full size ]
+
   
-  [ Click to view full size ]
 
 All Katonic components run in `Kubernetes <https://kubernetes.io/>`_ . You can run an instance of Katonic in the cloud or on-premises in your office or data center.
 
