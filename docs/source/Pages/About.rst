@@ -2,12 +2,13 @@
 About 
 ========
 
-**About Katonic 3.1**
+About Katonic 3.1
 ------------------
 Katonic MLOps platform is a Collaborative platform with a unified UI to manage all data science in one place. The Platform combines the creative scientific process of data scientists with the professional software engineering process to build and deploy Machine Learning Models into production safely, quickly, and in a sustainable way. 
 
-.. image:: Image/about_image.png
-  :width: 500
+.. image:: Imagepath/about_image.png
+  :width: 600
+  :alt: About Katonic
 
 [ Click to view full size ]  
 
