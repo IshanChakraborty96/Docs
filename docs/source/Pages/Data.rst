@@ -17,7 +17,7 @@ Katonic supports connecting to many external data stores. Users can import data 
 
   
 
-***1. Project Files:*** 
+**1. Project Files:**
 
  * Every Katonic project has a corresponding collection of project files.  
 
@@ -35,7 +35,7 @@ Katonic supports connecting to many external data stores. Users can import data 
 
   
 
-***2. Is project file data encrypted?*** 
+**2. Is project file data encrypted?** 
 
  * Katonic supports server-side encryption with customer-provided keys (SSE-C) for Amazon S3. 
 
@@ -45,7 +45,7 @@ Katonic supports connecting to many external data stores. Users can import data 
 
  * Katonic does not provide pre-write encryption for nfs-client-provisioner volumes. 
 
-***3. How does data get stored in project files?***
+**3. How does data get stored in project files?**
 
  * When a user starts a run in Katonic , the files from his or her project are fetched from the Katonic File Manager and loaded into the run in the working directory of the Katonic service filesystem.  
 
@@ -71,7 +71,7 @@ By default, all revisions of project files that Katonic creates are kept indefin
 
  
 
-***3. Who can access the data in project files?*** 
+**3. Who can access the data in project files?** 
 
  * Users can read and write files to the projects they create, on which they automatically are granted an Owner role. Owners can add collaborators to their projects with the following additional roles and associated files permissions. 
 
@@ -81,7 +81,7 @@ By default, all revisions of project files that Katonic creates are kept indefin
 
  * Katonic users with some administrative system roles are granted additional access to project files across the Katonic deployment they administer.  
 
-***4. How is the data in Katonic File manager stored?*** 
+**4. How is the data in Katonic File manager stored?**
 
  * When users have large quantities of data, including collections of many files and large individual files, Katonic recommends storing the data in a Katonic Dataset. File managers are collections of Snapshots, where each Snapshot is an immutable image of a filesystem directory from the time when the Snapshot was created.  
 
@@ -97,7 +97,7 @@ By default, all revisions of project files that Katonic creates are kept indefin
 
  
 
-***5. Who can access the data in Katonic File manager?*** 
+**5. Who can access the data in Katonic File manager?**
 
  * File manager in Katonic belong to projects, and access is afforded accordingly to users who have been granted roles on the containing project. 
 
@@ -111,7 +111,7 @@ By default, all revisions of project files that Katonic creates are kept indefin
 
   
 
-***6. Integrating Katonic with other data stores and databases*** 
+**6. Integrating Katonic with other data stores and databases** 
 
  * Katonic can be configured to connect to external data stores and databases. This process involves loading the required client software and drivers for the external service into a Katonic environment, and loading any credentials or connection details into Katonic environment variables. Users can then interact with the external service in their Runs. 
 
@@ -121,7 +121,7 @@ By default, all revisions of project files that Katonic creates are kept indefin
 
   
 
-***7. Tracking and auditing data interactions in Katonic*** 
+**7. Tracking and auditing data interactions in Katonic** 
 
  * Katonic system administrators can set up audit logs for user activity in the platform. These logs record events whenever users: 
 
@@ -171,7 +171,7 @@ External data volumes must be registered with Katonic before they can be used. A
 
   
 
-***Setting up Kubernetes PV and PVC (Storage class)*** 
+**Setting up Kubernetes PV and PVC (Storage class)** 
 
 Katonic runs on a Kubernetes cluster and EDVs must be backed by an underlying Kubernetes persistent volume (PV). That persistent volume must be bound to a persistent volume claim (PVC) The value of that key represents the type of external data volume. Currently, the supported types are NFS, SMB, and EFS. Finally, the PVC must be created in the Katonic compute namespace. 
 
@@ -179,13 +179,13 @@ Katonic runs on a Kubernetes cluster and EDVs must be backed by an underlying Ku
 
   
 
-***Registering external data volumes*** 
+**Registering external data volumes** 
 
 To register an EDV with Katonic, click the Register External Volume button on the upper right-hand size of the EDV administration page. This will open a modal with the EDV registration wizard. The wizard will guide administrators to register the EDV by configuring various EDV properties  
 
   
 
-***Volume*** 
+**Volume**
 
 The first step in the wizard is to select the volume type. The current supported volume types are NFS and EFS. 
 
@@ -193,11 +193,11 @@ The Available Volumes list will show all candidate volumes of the selected type.
 
   
 
-***Configuration*** 
+**Configuration** 
 
 The second step in the wizard is to configure the volume. 
 
-***Access*** 
+**Access** 
 
 The third step in the wizard is to define the volume access. See Volume Properties and Authorization. 
 
@@ -205,26 +205,26 @@ The third step in the wizard is to define the volume access. See Volume Properti
 
  * Specific users or organizations. Limit EDV access to specific users and organizations. 
 
-***Viewing registered external data volume details*** 
+**Viewing registered external data volume details** 
 
 To view a registered EDV details, click on the Name of the EDV in the admin table 
 
-***Editing registered external data volumes*** 
+**Editing registered external data volumes**
 
 To edit the details of a registered EDV, click on the vertical three dots on the right-hand side of its entry in the admin EDV table. This will expose the Edit action. Click Edit to edit the EDV details. 
 
-***Unregistering external data volumes*** 
+**Unregistering external data volumes** 
 
 To unregister an EDV, click on the vertical three dots on the right-hand side of its entry in the admin EDV table. This will expose the Unregister action.
 
 Datasets administration
 -----------------------------
 
-***Accessing the Datasets administration interface*** 
+**Accessing the Datasets administration interface** 
 
 To access the Datasets administration interface, click Admin from the Katonic main menu to open the Admin home, then click Advanced > Datasets. 
 
-***Monitoring Datasets usage*** 
+**Monitoring Datasets usage**
 
 The Datasets administration page shows important information about Datasets usage in your deployment. At the top of the interface is a display that shows: 
 
