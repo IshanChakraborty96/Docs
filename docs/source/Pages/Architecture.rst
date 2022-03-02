@@ -68,7 +68,7 @@ APache Oauth2 proxy is an open source HTTP and reverse proxy server. Katonic use
 
 'Learn about Apache Oauth2 proxy <https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/overview/>'_
 
-.. _Learn about Apache Oauth2 proxy <https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/overview/>
+.. _Learn about Apache Oauth2 proxy: <https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/overview/>
 
  * Katonic API server 
 
@@ -94,7 +94,7 @@ Keycloak is an enterprise-grade open source authentication service. Katonic uses
 
 'Learn more about Keycloak <https://www.keycloak.org/index.html>'_ 
 
-.. _Learn more about Keycloak <https://www.keycloak.org/index.html>
+.. _Learn more about Keycloak: <https://www.keycloak.org/index.html>
 
 **Supporting services** 
 
@@ -106,7 +106,7 @@ MongoDB is an open source document database. Katonic uses MongoDB to store Katon
 
 'Learn more about MongoDB <https://www.mongodb.com/what-is-mongodb>'_
 
-.. _Learn more about MongoDB <https://www.mongodb.com/what-is-mongodb>
+.. _Learn more about MongoDB: <https://www.mongodb.com/what-is-mongodb>
 
  * Git 
 
@@ -114,7 +114,7 @@ Git is a free and open source distributed version control system. Katonic uses G
 
 'Learn more about Git <https://git-scm.com/>'_ 
 
-.. _Learn more about Git <https://git-scm.com/>
+.. _Learn more about Git: <https://git-scm.com/>
 
  * Elasticsearch 
 
@@ -122,7 +122,7 @@ Elasticsearch is a distributed, RESTful search and analytics engine. Katonic use
 
 'Learn more about Elasticsearch <https://www.elastic.co/products/elasticsearch>'_ 
 
-.. _Learn more about Elasticsearch <https://www.elastic.co/products/elasticsearch>
+.. _Learn more about Elasticsearch: <https://www.elastic.co/products/elasticsearch>
 
  * Docker registry 
 
@@ -130,7 +130,7 @@ The Docker registry is an application used to store and distribute Docker images
 
 'Learn more about Docker registry <https://docs.docker.com/registry/>'_ 
 
-.. _Learn more about Docker registry <https://docs.docker.com/registry/>
+.. _Learn more about Docker registry: <https://docs.docker.com/registry/>
 
  * Fluentd 
 
@@ -138,7 +138,7 @@ Fluentd is an open source application that unifies and processes logging and tel
 
 'Learn more about Fluentd <https://www.fluentd.org/>'_ 
 
-.. _Learn more about Fluentd <https://www.fluentd.org/>
+.. _Learn more about Fluentd: <https://www.fluentd.org/>
 
  * Redis 
 
@@ -146,7 +146,7 @@ Redis is an open source data structure cache. Katonic uses Redis to cache logs i
 
 'Learn more about Redis <https://redis.io/>'_ 
 
-.. _Learn more about Redis <https://redis.io/>
+.. _Learn more about Redis: <https://redis.io/>
 
  * RabbitMQ 
 
@@ -154,7 +154,7 @@ RabbitMQ is an open source message broker. Katonic uses RabbitMQ as an event bus
 
 'Learn more about RabbitMQ <https://www.rabbitmq.com/>'_
 
-.. _Learn more about RabbitMQ <https://www.rabbitmq.com/>
+.. _Learn more about RabbitMQ: <https://www.rabbitmq.com/>
 
  * Postgres 
 
@@ -162,7 +162,7 @@ Postgres is an open source relational database system. Katonic uses Postgres as 
 
 'Learn more about Postgres <https://www.postgresql.org/>'_ 
 
-.. _Learn more about Postgres <https://www.postgresql.org/>
+.. _Learn more about Postgres: <https://www.postgresql.org/>
 
 User accounts
 ----------------
@@ -175,7 +175,7 @@ When using local accounts, anyone with network access to the Katonic application
 
 'Learn more about Keycloak administration <https://www.keycloak.org/docs/latest/server_admin/index.html>'_
 
-.. _Learn more about Keycloak administration <https://www.keycloak.org/docs/latest/server_admin/index.html>
+.. _Learn more about Keycloak administration: <https://www.keycloak.org/docs/latest/server_admin/index.html>
 
 **Identity federation** 
 
@@ -183,7 +183,7 @@ Keycloak can be configured to integrate with an Active Directory (AD) or LDAP(S)
 
 'Learn more about Keycloak identity federation <https://www.keycloak.org/docs/latest/server_admin/index.html#_user-storage-federation>'_
 
-.. _Learn more about Keycloak identity federation <https://www.keycloak.org/docs/latest/server_admin/index.html#_user-storage-federation>
+.. _Learn more about Keycloak identity federation: <https://www.keycloak.org/docs/latest/server_admin/index.html#_user-storage-federation>
 
 **Identity brokering** 
 
@@ -191,7 +191,7 @@ Keycloak can be configured to broker authentication between Katonic and an exter
 
 'Learn more about Keycloak identity brokering <https://www.keycloak.org/docs/latest/server_admin/index.html#_identity_broker>'_
 
-.. _Learn more about Keycloak identity brokering <https://www.keycloak.org/docs/latest/server_admin/index.html#_identity_broker>
+.. _Learn more about Keycloak identity brokering: <https://www.keycloak.org/docs/latest/server_admin/index.html#_identity_broker>
 
 Service mesh
 ----------------
@@ -199,4 +199,4 @@ A service mesh provides a transparent and language-independent way to flexibly a
 
 'Learn more about Istio <https://istio.io/>'_
 
-.. _Learn more about Istio <https://istio.io/>
+.. _Learn more about Istio: <https://istio.io/>
