@@ -144,7 +144,7 @@ Fluentd is an open source application that unifies and processes logging and tel
 
 Redis is an open source data structure cache. Katonic uses Redis to cache logs in-memory for streaming back to users through the web application. 
 
-'Learn more about Redis <https://redis.io/>`_
+`Learn more about Redis <https://redis.io/>`_
 
 .. _Learn more about Redis: <https://redis.io/>
 
