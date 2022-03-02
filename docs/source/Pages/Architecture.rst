@@ -66,7 +66,7 @@ The following primary application services run on platform nodes in the Katonic 
 
 APache Oauth2 proxy is an open source HTTP and reverse proxy server. Katonic uses Apache Oauth2-proxy to serve the Katonic web application and as a reverse proxy to route requests to internal services. 
 
-'Learn about Apache Oauth2 proxy <https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/overview/>'_
+`Learn about Apache Oauth2 proxy <https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/overview/>`_
 
 .. _Learn about Apache Oauth2 proxy: <https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/overview/>
 
@@ -92,7 +92,7 @@ Keycloak is an enterprise-grade open source authentication service. Katonic uses
 
  * LDAP(S) 
 
-'Learn more about Keycloak <https://www.keycloak.org/index.html>'_ 
+`Learn more about Keycloak <https://www.keycloak.org/index.html>`_
 
 .. _Learn more about Keycloak: <https://www.keycloak.org/index.html>
 
@@ -104,7 +104,7 @@ These metadata, communication, and processing services run on platform nodes.
 
 MongoDB is an open source document database. Katonic uses MongoDB to store Katonic entities, like projects, users, and organizations. Katonic stores the structure of these entities in MongoDB, but underlying data is stored separately in encrypted blob storage. 
 
-'Learn more about MongoDB <https://www.mongodb.com/what-is-mongodb>'_
+`Learn more about MongoDB <https://www.mongodb.com/what-is-mongodb>`_
 
 .. _Learn more about MongoDB: <https://www.mongodb.com/what-is-mongodb>
 
@@ -112,7 +112,7 @@ MongoDB is an open source document database. Katonic uses MongoDB to store Katon
 
 Git is a free and open source distributed version control system. Katonic uses Git internally for revisioning projects and files. Katonic Executors also run Git clients, and they can interact with user-controlled external repositories to access code or data. 
 
-'Learn more about Git <https://git-scm.com/>'_ 
+`Learn more about Git <https://git-scm.com/>`_
 
 .. _Learn more about Git: <https://git-scm.com/>
 
@@ -120,7 +120,7 @@ Git is a free and open source distributed version control system. Katonic uses G
 
 Elasticsearch is a distributed, RESTful search and analytics engine. Katonic uses Elasticsearch to power user searches for Katonic objects like projects, files, and models. Katonic also uses Elasticsearch for logging. 
 
-'Learn more about Elasticsearch <https://www.elastic.co/products/elasticsearch>'_ 
+`Learn more about Elasticsearch <https://www.elastic.co/products/elasticsearch>`_
 
 .. _Learn more about Elasticsearch: <https://www.elastic.co/products/elasticsearch>
 
@@ -128,7 +128,7 @@ Elasticsearch is a distributed, RESTful search and analytics engine. Katonic use
 
 The Docker registry is an application used to store and distribute Docker images. Katonic uses its registry to store images for Katonic environments and Model APIs. These images are built to user specifications by compute nodes. 
 
-'Learn more about Docker registry <https://docs.docker.com/registry/>'_ 
+`Learn more about Docker registry <https://docs.docker.com/registry/>`_
 
 .. _Learn more about Docker registry: <https://docs.docker.com/registry/>
 
@@ -136,7 +136,7 @@ The Docker registry is an application used to store and distribute Docker images
 
 Fluentd is an open source application that unifies and processes logging and telemetry data. Katonic uses Fluentd to aggregate logs and forward data to durable storage. 
 
-'Learn more about Fluentd <https://www.fluentd.org/>'_ 
+`Learn more about Fluentd <https://www.fluentd.org/>`_
 
 .. _Learn more about Fluentd: <https://www.fluentd.org/>
 
@@ -144,7 +144,7 @@ Fluentd is an open source application that unifies and processes logging and tel
 
 Redis is an open source data structure cache. Katonic uses Redis to cache logs in-memory for streaming back to users through the web application. 
 
-'Learn more about Redis <https://redis.io/>'_ 
+'Learn more about Redis <https://redis.io/>`_
 
 .. _Learn more about Redis: <https://redis.io/>
 
@@ -152,7 +152,7 @@ Redis is an open source data structure cache. Katonic uses Redis to cache logs i
 
 RabbitMQ is an open source message broker. Katonic uses RabbitMQ as an event bus to asynchronously distribute event messages between Katonic services. 
 
-'Learn more about RabbitMQ <https://www.rabbitmq.com/>'_
+`Learn more about RabbitMQ <https://www.rabbitmq.com/>`_
 
 .. _Learn more about RabbitMQ: <https://www.rabbitmq.com/>
 
@@ -160,7 +160,7 @@ RabbitMQ is an open source message broker. Katonic uses RabbitMQ as an event bus
 
 Postgres is an open source relational database system. Katonic uses Postgres as a storage system for Keycloak data on user identities and attributes. 
 
-'Learn more about Postgres <https://www.postgresql.org/>'_ 
+`Learn more about Postgres <https://www.postgresql.org/>`_ 
 
 .. _Learn more about Postgres: <https://www.postgresql.org/>
 
@@ -173,7 +173,7 @@ Katonic uses Keycloak to manage user accounts. Keycloak supports the following m
 
 When using local accounts, anyone with network access to the Katonic application may create a Katonic account. Users supply a username, password, and email address on the signup page to create a Katonic-managed account. Katonic administrators can track, manage, and deactivate these accounts through the application. Katonic can be configured with multi-factor authentication and password requirements through Keycloak. 
 
-'Learn more about Keycloak administration <https://www.keycloak.org/docs/latest/server_admin/index.html>'_
+`Learn more about Keycloak administration <https://www.keycloak.org/docs/latest/server_admin/index.html>`_
 
 .. _Learn more about Keycloak administration: <https://www.keycloak.org/docs/latest/server_admin/index.html>
 
@@ -181,7 +181,7 @@ When using local accounts, anyone with network access to the Katonic application
 
 Keycloak can be configured to integrate with an Active Directory (AD) or LDAP(S) identity provider (IdP). When identity federation is enabled, local account creation is disabled and Keycloak will authenticate users against identities in the external IdP and retrieve configurable properties about those users for Katonic usernames and email addresses. 
 
-'Learn more about Keycloak identity federation <https://www.keycloak.org/docs/latest/server_admin/index.html#_user-storage-federation>'_
+`Learn more about Keycloak identity federation <https://www.keycloak.org/docs/latest/server_admin/index.html#_user-storage-federation>`_
 
 .. _Learn more about Keycloak identity federation: <https://www.keycloak.org/docs/latest/server_admin/index.html#_user-storage-federation>
 
@@ -189,7 +189,7 @@ Keycloak can be configured to integrate with an Active Directory (AD) or LDAP(S)
 
 Keycloak can be configured to broker authentication between Katonic and an external authentication or SSO system. When identity brokering is enabled, Katonic will redirect users in the authentication flow to a SAML, OAuth, or OIDC service for authentication. Following authentication in the external service, the user is routed back to Katonic with a token containing user properties. 
 
-'Learn more about Keycloak identity brokering <https://www.keycloak.org/docs/latest/server_admin/index.html#_identity_broker>'_
+`Learn more about Keycloak identity brokering <https://www.keycloak.org/docs/latest/server_admin/index.html#_identity_broker>`_
 
 .. _Learn more about Keycloak identity brokering: <https://www.keycloak.org/docs/latest/server_admin/index.html#_identity_broker>
 
@@ -197,6 +197,6 @@ Service mesh
 ----------------
 A service mesh provides a transparent and language-independent way to flexibly and easily automate application network functions, such as: traffic routing, load balancing, observability, and encryption. Katonic can optionally deploy or integrate with Istio, an open source service mesh.  
 
-'Learn more about Istio <https://istio.io/>'_
+`Learn more about Istio <https://istio.io/>`_
 
 .. _Learn more about Istio: <https://istio.io/>
