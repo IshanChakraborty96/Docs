@@ -116,9 +116,119 @@ After you enable audit logging, messages are written to Application logs. Other 
 Contact `support@katonic.ai <mailto:support@katonic.ai>`_ for assistance enabling, accessing, and processing audit logs. 
 Monitoring
 
-.. _support@katonic.ai: <mailto:support@katonic.ai>  
+.. _support@katonic.ai: <mailto:support@katonic.ai> 
 
-Sizing infrastructure for Domino
+Katonic monitoring (Pending Implimentation) 
+---------------------------------------------
+
+Monitoring Katonic involves tracking several key application metrics. These metrics reveal the health of the application and can provide advance warning of any issues or failures of Katonic components. 
+
+Metrics 
+
+Katonic recommends tracking these metrics in priority order:
+
+.. list-table:: Component & Logs
+   :widths: 50 50 50
+   :header-rows: 3
+
+   * - Metric 
+     - Suggested threshold 
+     - Notes
+
+   * - Latency to ``/health`` 
+     - 1000ms
+     - Measures the time to receive a response to a request to the Katonic API server. If the response time is too high, this suggests that the system is unhealthy and that user experience might be impacted. This can be measured by calls to the Katonic application at a path of ``/health``.  
+   * - Dispatcher pod availability from `metrics server <https://kubernetes.io/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server>`_
+     - ``nucleus-dispatcher`` pods available = 0 for > 10 minutes 
+     - If the number of pods in the ``nucleus-dispatcher`` deployment is 0 for greater than 10 minutes, its an indication of critical issues that Katonic will not automatically recover from, and functionality will be degraded.  
+   * - Frontend pod availability from `metrics server <https://kubernetes.io/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server>`_
+     - ``nucleus-frontend`` pods available < 2 for > 10 minutes 
+     - If the number of pods in the ``nucleus-frontend`` deployment is less than two for greater than 10 minutes, its an indication of critical issues that Katonic will not automatically recover from, and functionality will be degraded.
+
+.. _metrics server: <https://kubernetes.io/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server>
+
+.. _metrics server: <https://kubernetes.io/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server>
+
+There are many application monitoring tools you can use to track these metrics, including: 
+
+ * `NewRelic <https://newrelic.com/platform/kubernetes/monitoring-guide>`_
+
+ .. _NewRelic: <https://newrelic.com/platform/kubernetes/monitoring-guide>
+
+ * `Splunk <https://docs.splunk.com/Documentation/InfraApp/2.0.2/Admin/AddDataKubernetes>`_
+
+ .. _Splunk: <https://docs.splunk.com/Documentation/InfraApp/2.0.2/Admin/AddDataKubernetes>
+
+ * `Datadog <https://www.datadoghq.com/blog/how-to-collect-and-graph-kubernetes-metrics/>`_
+
+ .. _Datadog: <https://www.datadoghq.com/blog/how-to-collect-and-graph-kubernetes-metrics/>
+
+ **Alerting** (Pending ) 
+
+Users are advised to configure alerts to their application administrators if the thresholds listed above are exceeded. These alerts are an indication of potential resourcing issues or unusual usage patterns worth investigation. Refer to the Katonic application logs, the Katonic administration UI, and the Katonic Control Center to gather additional information. 
+
+Sizing infrastructure for Katonic 
 -------------------------------------
 
-Chat in the `#chat-with-Katonic`chat bot. Katonic bot will respond to anyone in this site.
+Katonic runs in Kubernetes, which is an orchestration framework for delivering applications to a distributed computing cluster. The Domino application runs two types of workloads in Kubernetes, and there are different principles to sizing infrastructure for each: 
+
+ * Katonic Platform 
+
+These always-on components provide user interfaces, the Domino API server, orchestration, metadata and supporting services. The standard architecture runs the platform on a stable set of three nodes for high availability, and the capabilities of the platform are principally managed through vertical scaling, which means changing the CPU and memory resources available on those platform nodes and changing the resources requested by the platform components. 
+
+ * Katonic Compute 
+
+These on-demand components run users’ data science, engineering, and machine learning workflows. Compute workloads run on customizable collections of nodes organized into node pools. The number of these nodes can be variable and elastic, and the capabilities are principally managed through horizontal scaling, which means changing the number of nodes. However, when there are more resources present on compute nodes, they can handle additional workloads, and therefore there are benefits to vertical scaling. 
+
+**Sizing the Katonic Platform** 
+
+The resources available to the Katonic Platform will determine how much concurrent work the application can handle. This is the primary capability of Katonic that is limited by vertical scale. To increase the capacity, key components must have access to additional CPU and memory. 
+
+The default size for the Katonic Platform is three nodes, with 8 CPU cores and 32GB memory each, for a total of 24 CPU cores and 96GB of memory. Those resources are available to the `collective of Platform services <https://admin.dominodatalab.com/en/latest/architecture.html#services>`_, and each service claims some resources via `Kubernetes resource requests <https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/>`_. 
+
+.. _collective of Platform services: <https://admin.dominodatalab.com/en/latest/architecture.html#services>
+
+.. _Kubernetes resource requests: <https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/>
+
+The capabilities of that default size are shown below, along with options for alternative sizing. 
+
+.. list-table:: Component & Logs
+   :widths: 50 50 50
+   :header-rows: 3
+
+   * - Size 
+     - Maximum concurrent executions
+     - Platform specs
+
+   * - Default  
+     - 300 
+     - 4 nodes with at least 4 CPU cores and 16 GiB memory each. AWS recommendation: 3x t2.`xlarge <https://aws.amazon.com/ec2/pricing/reserved-instances/pricing/>`_ GCP recommendation: 3x `n1-standard-8 <https://cloud.google.com/compute/docs/machine-types>`_ Azure recommendation: 3x `Standard_DS5_v2 <https://docs.microsoft.com/en-us/azure/virtual-machines/dv2-dsv2-series?toc=/azure/virtual-machines/linux/toc.json&bc=/azure/virtual-machines/linux/breadcrumb/toc.json#dsv2-series>`_
+   * - Other 
+     - Contact your Katonic account team if you need an alternative size 
+     - Varies 
+
+.. _xlarge: <https://aws.amazon.com/ec2/pricing/reserved-instances/pricing/>
+
+.. _n1-standard-8: <https://cloud.google.com/compute/docs/machine-types>
+
+.. _Standard_DS5_v2: <https://docs.microsoft.com/en-us/azure/virtual-machines/dv2-dsv2-series?toc=/azure/virtual-machines/linux/toc.json&bc=/azure/virtual-machines/linux/breadcrumb/toc.json#dsv2-series>
+
+**Estimating concurrent executions** 
+
+Katonic recommends assuming a baseline maximum number of workloads equal to 50% of the number of total Katonic users, expressed as a _concurrency_ of 50%. However, different teams and organizations may have different usage patterns in Katonic. For teams that regularly run batches of many executions at once, it may be necessary to size Katonic to support a concurrency of 100%, or even 200%. 
+
+Optimizing your configuration for efficient use of Platform resources 
+
+The following practices can maximize the capabilities of a Platform with a given size. 
+
+* When a user launches a Katonic Run, part of the start-up process is loading the user’s environment onto the node that will host the Run. For large images, the process of transferring the image to a new node can take several minutes. Once an image has been loaded onto a node once, it gets cached, and future Runs that use the same environment will start up faster. 
+
+* Optimize your hardware tiers and node sizes to fit many workloads in tidy groups. Each additional node runs message brokers, logging agents, and adds load to Platform services that process queues from the Compute Grid. The Platform can handle more concurrent executions by running more executions on fewer nodes. 
+
+* Parallelize your tasks by running your workload on many cores of one large node, rather than by chunking tasks into multiple workloads across multiple nodes. This reduces the total number of nodes being managed, and thereby reduces load on the Katonic platform.
+
+**Container resource management** 
+
+Katonic uses `Kubernetes requests <https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/>`_ and limits to manage the CPU and memory resources that Katonic pods use. These requests and limits can be scaled to adjust resource consumption and performance. Container workloads such as databases and search systems whose data integrity is affected by the enforcement of limits do not have limits added to their configuration and care should be taken not to add limits to them. 
+
+.. _Kubernetes requests: <https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/>
