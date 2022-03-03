@@ -53,7 +53,7 @@ master_doc = 'index'
 #html_theme = "insegel"
 #html_theme_options = {"navigation_depth": 2}
 
-html_logo = "Klogo.svg"
+html_logo = "Katoniclogo.jpg"
 
 
 # -- Options for EPUB output
