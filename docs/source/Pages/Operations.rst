@@ -65,9 +65,9 @@ The following components running in this namespace produce the most important lo
 
 
 
-.. list-table:: Title
-   :widths: 25 25 50
-   :header-rows: 1
+.. list-table:: Component & Logs
+   :widths: 50 50
+   :header-rows: 2
 
    * - Component
      - Logs
