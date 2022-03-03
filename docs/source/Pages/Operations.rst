@@ -48,23 +48,6 @@ This namespace hosts the core application components of the Katonic application,
 
 The following components running in this namespace produce the most important logs: 
 
-+--------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ------+
-| Component          | Logs                                                                                                                                                                                                                                                                                                                               |
-+====================+====================================================================================================================================================================================================================================================================================================================================+
-|nucleus-frontend    |The nucleus-frontend pods host the frontend API server that routes all requests to the Katonic application. Its logs will contain details on HTTP requests to Katonic from the application or another API client. If you see errors in Katonic with HTTP error codes like 500, 504, or 401, you can find corresponding logs here.   |
-+--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| nucleus-dispatcher |The nucleus-dispatcher pod hosts the Katonic scheduling and brokering service that sends user execution pods to Kubernetes for deployment. Errors in communication between Katonic and Kubernetes will result in corresponding logs from this service.                                                                              |
-+--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| keycloak           | The keycloak pods hosts the Katonic authentication service. The logs for this service will contain a record of authentication events, including additional details on any errors.                                                                                                                                                  |
-+--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| cluster-autoscaler |This pod hosts the open-source Kubernetes cluster autoscaler, which controls and manages autoscaling resources. The logs for this service will contain records of scaling events, both scaling up new nodes in response to demand and scaling down idle resources, including additional details on any errors.                      |
-+--------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-
-
-
-
-
-
 .. list-table:: Component & Logs
    :widths: 50 50
    :header-rows: 2
