@@ -48,10 +48,6 @@ This namespace hosts the core application components of the Katonic application,
 
 The following components running in this namespace produce the most important logs: 
 
-.. image:: images/servicesarch.png
-   :width: 600
-
-
 .. list-table:: Title
    :widths: 25 25 50
    :header-rows: 1
