@@ -80,10 +80,10 @@ In AWS, EBS is used to back this storage class. As per requirement of user we ca
 
 In azure, azure disk is used to back this storage class. We use azure disk storage class.  
 
-   Azure disk storage class
+ Azure disk storage class
    
-  ::  
-    apiVersion: storage.k8s.io/v1 
+::  
+  apiVersion: storage.k8s.io/v1 
 
       kind: StorageClass 
 
