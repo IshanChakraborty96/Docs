@@ -128,19 +128,27 @@ By default, this storage class is named kfs(Katonic file system).
 
 For shared storage, we allow for (and even require) native cloud provider object store for a few resources and services: 
 
- * Blob Storage. For AWS, the blob storage must be backed by S3 (see Blob storage). For other infrastructure, the Kfs storage class is used. 
+ * Blob Storage. For AWS, the blob storage must be backed by S3 (see `Blob storage <https://admin.dominodatalab.com/en/5.0.1/kubernetes/eks.html#blob-storage>`_). For other infrastructure, the Kfs storage class is used. 
 
- * Logs. For AWS, the log storage must be backed by S3 (see Blob storage). For others, the kfs storage class is used. 
+ * Logs. For AWS, the log storage must be backed by S3 (see `Blob storage <https://admin.dominodatalab.com/en/5.0.1/kubernetes/eks.html#blob-storage>`_). For others, the kfs storage class is used. 
 
  * Backups. For all supported cloud providers, storage for backups is backed by the native blob store. For on-prem, backups are backed by the kfs storage class. 
 
-    * AWS: S3 
+    * AWS: `S3 <https://aws.amazon.com/s3/>`_
 
-    * Azure: Azure Blob Storage 
+    * Azure: `Azure Blob Storage <https://azure.microsoft.com/en-us/services/storage/blobs/>`_
 
- * Datasets. For AWS, Datasets storage must be backed by EFS (see Datasets storage). For other infrastructure, the kfs storage class is used. 
+ * Datasets. For AWS, Datasets storage must be backed by EFS (see `Datasets storage <https://admin.dominodatalab.com/en/5.0.1/kubernetes/eks.html#datasets-storage>`_). For other infrastructure, the kfs storage class is used. 
 
- 
+ .. _Blob storage: <https://admin.dominodatalab.com/en/5.0.1/kubernetes/eks.html#blob-storage>
+
+ .. _Blob storage: <https://admin.dominodatalab.com/en/5.0.1/kubernetes/eks.html#blob-storage>
+
+ .. _S3: <https://aws.amazon.com/s3/>
+
+ .. _Azure Blob Storage: <https://azure.microsoft.com/en-us/services/storage/blobs/>
+
+ .. _Datasets storage: <https://admin.dominodatalab.com/en/5.0.1/kubernetes/eks.html#datasets-storage>
 
 **On-Prem** 
 
@@ -150,51 +158,37 @@ In on-prem environments, both  kdisk and kfs can be backed by NFS. In some
 
 OS requirement = ubuntu 20.04 
 
+.. list-table:: Component & Logs
+   :widths: 50 50
+   :header-rows: 2
 
+   * - Nodes
+     - CPU
+     - Memory
+     - OS Drive 
+     - Additional disk
+     - GPU 
 
+   * - Master Nodes 
+     - 4
+     - 8 
+     - >=30Gb 
+     - Not required 
+     - Not Required
+   * - Worker Node
+     - 8
+     - 16 
+     - >=30Gb
+     - >=100 Gb 
+     - Optional
 
-
-
-Nodes 
-
-CPU 
-
-Memory 
-
-OS Drive 
-
-Additional disk 
-
-GPU 
-
-Master Nodes 
-
-4 
-
-8 
-
->=30Gb 
-
-Not required 
-
-Not Required 
-
-Worker Node 
-
-8 
-
-16 
-
->=30Gb 
-
->=100 Gb 
-
-Optional 
-
- 
 **Cluster networking** 
 
-Katonic relies on Kubernetes network policies to manage secure communication between pods in the cluster. Network policies are implemented by the network plugin, so your cluster use a networking solution which supports NetworkPolicy, such as Calico. 
+Katonic relies on `Kubernetes network policies <https://kubernetes.io/docs/concepts/services-networking/network-policies/>`_ to manage secure communication between pods in the cluster. Network policies are implemented by the network plugin, so your cluster use a networking solution which supports ``NetworkPolicy``, such as `Calico <https://docs.projectcalico.org/v3.11/getting-started/kubernetes/>`_. 
+
+.. _Kubernetes network policies: <https://kubernetes.io/docs/concepts/services-networking/network-policies/>
+
+.. _Calico: <https://docs.projectcalico.org/v3.11/getting-started/kubernetes/>
 
 **Ingress and SSL** 
 
