@@ -156,7 +156,7 @@ OS requirement = ubuntu 20.04
 
 .. list-table:: Component & Logs
    :widths: 60 60 60 60 60 60
-   :header-rows: 6
+   :header-rows: 1
 
    * - Nodes
      - CPU
