@@ -219,8 +219,110 @@ Chat in the `#chat-with-Katonic`chat bot. Katonic bot will respond to anyone in 
 Domino on GKE
 --------------------
 
-Domino on AKS
+Katonic on AKS 
 --------------------
+
+Katonic can run on a Kubernetes cluster provided by the `Azure Kubernetes Service <https://azure.microsoft.com/en-us/services/kubernetes-service/>`_. When running on AKS, the Katonic architecture uses Azure resources to fulfill the Katonic cluster requirements as follows: 
+
+.. _Azure Kubernetes Service: <https://azure.microsoft.com/en-us/services/kubernetes-service/>
+
+ * For a complete Terraform module for Domino-compatible AKS provisioning, see terraform-azure-aks on GitHub. 
+
+ * Kubernetes control is handled by the AKS control plane with managed Kubernetes masters. 
+
+ * The AKS cluster’s default node pool is configured to host the katonic platform. 
+
+ * Additional AKS node pools provide compute nodes for user workloads. 
+
+ * Starting with Katonic, when Katonic is deployed in AKS, it is compatible with the containerd runtime, which is the AKS default runtime for Kubernetes 1.19 and above. 
+
+ * When using the containerd runtime, Katonic images are stored in Azure Container Registry. 
+
+ * An Azure storage account stores Katonic blob data and datasets. 
+
+ * The kubernetes.io/azure-disk provisioner is used to create persistent volumes for Katonic executions 
+
+ * The Advanced Azure CNI is used for cluster networking, with network policy enforcement handled by Calico 
+
+ * Ingress to the Domino application is handled by an SSL-terminating Application Gateway that points to a Kubernetes load balancer. 
+
+ 
+
+**Resource groups** 
+
+You can provide the cluster, storage, and application gateway in an existing resource group. Note that in the process of creating the cluster itself, Azure will create a separate resource group that will contain the cluster components themselves. 
+
+ 
+**Namespaces** 
+
+No namespace configuration is necessary prior to installation. Katonic will create some namespaces in the cluster during installation. 
+
+ 
+
+**Node pools** 
+
+The AKS cluster’s initial default node pool can be sized and configured to host the must have at least two node pools that produce worker nodes with the following specifications and distinct node labels, and it may include an optional GPU pool: 
+
+ 
+
+**Requirement nodes configuration** 
+
+OS requirement = ubuntu 20.04 
+
+System requirements
+
+.. list-table:: OS requirement = ubuntu 20.04 
+   :widths: 60 60 60 60 60 60
+   :header-rows: 1
+
+   * - Nodes
+     - CPU
+     - Memory
+     - OS Drive 
+     - Additional disk
+     - GPU 
+
+   * - Master Nodes 
+     - 4
+     - 8 
+     - >=30Gb 
+     - Not required 
+     - Optional 
+   * - Worker Node
+     - 8
+     - 16 
+     - >=30Gb
+     - >=30Gb 
+     - Optional
+
+**Network plugin** 
+
+Katonic relies on Kubernetes network policies to manage secure communication between pods in the cluster. Network policies are implemented by the network plugin, so your cluster uses a networking solution that supports NetworkPolicy, such as Calico. 
+
+ 
+
+**Dynamic block storage** 
+
+AKS clusters come equipped with several kubernetes.io/azure-disk backed storage classes by default. Domino requires use of premium disks for adequate input and output performance. The managed-premium class that is created by default can be used. Consult the following storage class specification as an example. 
+
+:: 
+  
+  allowVolumeExpansion: true 
+  apiVersion: storage.k8s.io/v1 
+  kind: StorageClass 
+    metadata: 
+    labels: 
+      kubernetes.io/cluster-service: "true" 
+    name: managed-premium 
+    selfLink: /apis/storage.k8s.io/v1/storageclasses/default 
+  parameters: 
+    cachingmode: ReadOnly 
+    kind: Managed 
+    storageaccounttype: Premium_LRS 
+  reclaimPolicy: Delete 
+  volumeBindingMode: Immediate 
+ 
+
 
 Domino on OpenShift
 --------------------
