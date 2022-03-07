@@ -59,17 +59,16 @@ By default, this storage class is named kdisk.
  
 
 In AWS, EBS is used to back this storage class. As per requirement of user we can change the EBS type to io1, gp2, gp3, etc.
-
 :: 
   apiVersion: storage.k8s.io/v1 
 
-    kind: StorageClass 
+  kind: StorageClass 
 
     metadata: 
 
         name: katonic-compute-storage 
 
-    provisioner: kubernetes.io/aws-ebs 
+  provisioner: kubernetes.io/aws-ebs 
 
     parameters: 
 
@@ -77,22 +76,19 @@ In AWS, EBS is used to back this storage class. As per requirement of user we ca
 
         fsType: ext4
 
- 
-
 In azure, azure disk is used to back this storage class. We use azure disk storage class.  
 
- Azure disk storage class
-   
+ Azure disk storage class   
 ::  
   apiVersion: storage.k8s.io/v1 
 
-      kind: StorageClass 
+    kind: StorageClass 
 
       metadata: 
 
         name: slow 
 
-      provisioner: kubernetes.io/azure-disk 
+    provisioner: kubernetes.io/azure-disk 
 
       parameters: 
 
@@ -161,7 +157,7 @@ In on-prem environments, both  kdisk and kfs can be backed by NFS. In some
 OS requirement = ubuntu 20.04 
 
 .. list-table:: Component & Logs
-   :widths: 20 20 20 20 20 20
+   :widths: 60 60 60 60 60 60
    :header-rows: 6
 
    * - Nodes
