@@ -190,6 +190,22 @@ Katonic relies on `Kubernetes network policies <https://kubernetes.io/docs/conce
 
 Katonic platform will need to be configured to serve from a specific FQDN, and DNS for that name should resolve to the address of an SSL-terminating load balancer with a valid certificate. The load balancer must target incoming connections on ports 80 and 443 to port 80 on all nodes in the Platform pool. This load balancer must support websocket connections. 
 
+Encryption in transit
+------------------------ 
+
+Intra-cluster encryption in transit is implemented via a deployed service mesh, specifically `Istio <https://istio.io/>`_. At installation time, Domino can deploy Istio for Domino use only, or Domino can be configured to leverage an existing deployed Istio on the Kubernetes cluster (potentially shared with other applications). See `Installation Configuration Reference <https://admin.dominodatalab.com/en/5.0.1/installation/installer-configuration.html#istio>`_ for details. 
+
+ 
+Out of the box, Istio provides scalable `identity and X.509 certificate management <https://istio.io/latest/docs/concepts/security/#pki>`_ for use with mTLS encryption, including periodic certificate and key rotation. Because all encrypted communication is internal, these certificates are not exposed or required for communication to any external services, such as web browsers and clients. 
+
+We do understand that certain enterprise policies mandate the use of corporate public key infrastructure (PKI) and necessitate the use of certificate authority (CA) certificates. 
+
+.. _Istio: <https://istio.io/>
+
+.. _Installation Configuration Reference: <https://admin.dominodatalab.com/en/5.0.1/installation/installer-configuration.html#istio>]
+
+.. _identity and X.509 certificate management: <https://istio.io/latest/docs/concepts/security/#pki>
+
 Requirements checker
 ----------------------
 
