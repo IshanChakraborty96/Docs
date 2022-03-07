@@ -59,8 +59,8 @@ By default, this storage class is named kdisk.
  
 
 In AWS, EBS is used to back this storage class. As per requirement of user we can change the EBS type to io1, gp2, gp3, etc. 
-
-  ``apiVersion: storage.k8s.io/v1 
+:: 
+  apiVersion: storage.k8s.io/v1 
 
     kind: StorageClass 
 
@@ -74,15 +74,16 @@ In AWS, EBS is used to back this storage class. As per requirement of user we ca
 
         type: gp2 
 
-        fsType: ext4``
+        fsType: ext4
 
  
 
 In azure, azure disk is used to back this storage class. We use azure disk storage class.  
 
-     Azure disk storage class  
-
-    ``apiVersion: storage.k8s.io/v1 
+   Azure disk storage class
+   
+  ::  
+    apiVersion: storage.k8s.io/v1 
 
       kind: StorageClass 
 
@@ -96,7 +97,7 @@ In azure, azure disk is used to back this storage class. We use azure disk stora
 
         storageaccounttype: Standard_LRS 
 
-        kind: managed`` 
+        kind: managed 
 
  
 
