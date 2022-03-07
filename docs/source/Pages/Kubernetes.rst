@@ -96,9 +96,6 @@ In azure, azure disk is used to back this storage class. We use azure disk stora
 
         kind: managed   
   
-
- 
-
 2. Long term shared storage 
 
 Katonic needs a separate storage class for long term storage for: 
