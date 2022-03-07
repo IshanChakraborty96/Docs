@@ -116,10 +116,6 @@ In AWS, these storage requirements are handled by two separate classes. One back
 
 By default, this storage class is named kfs(Katonic file system). 
 
- 
-
- 
-
 **Native** 
 
 For shared storage, we allow for (and even require) native cloud provider object store for a few resources and services: 
