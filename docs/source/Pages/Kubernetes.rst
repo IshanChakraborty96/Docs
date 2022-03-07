@@ -154,7 +154,7 @@ In on-prem environments, both  kdisk and kfs can be backed by NFS. In some
 
 OS requirement = ubuntu 20.04 
 
-.. list-table:: Component & Logs
+.. list-table:: OS requirement = ubuntu 20.04 
    :widths: 60 60 60 60 60 60
    :header-rows: 1
 
