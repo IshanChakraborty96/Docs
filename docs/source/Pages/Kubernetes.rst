@@ -226,11 +226,11 @@ Katonic can run on a Kubernetes cluster provided by the `Azure Kubernetes Servic
 
 .. _Azure Kubernetes Service: <https://azure.microsoft.com/en-us/services/kubernetes-service/>
 
- * For a complete Terraform module for Domino-compatible AKS provisioning, see terraform-azure-aks on GitHub. 
+ * For a complete Terraform module for Domino-compatible AKS provisioning, see `terraform-azure-aks on GitHub <https://github.com/dominodatalab/terraform-azure-aks>`_. 
 
  * Kubernetes control is handled by the AKS control plane with managed Kubernetes masters. 
 
- * The AKS cluster’s default node pool is configured to host the katonic platform. 
+ * The AKS cluster’s default `node pool <https://docs.microsoft.com/en-us/cli/azure/ext/aks-preview/aks/nodepool?view=azure-cli-latest>`_ is configured to host the katonic platform. 
 
  * Additional AKS node pools provide compute nodes for user workloads. 
 
@@ -238,15 +238,21 @@ Katonic can run on a Kubernetes cluster provided by the `Azure Kubernetes Servic
 
  * When using the containerd runtime, Katonic images are stored in Azure Container Registry. 
 
- * An Azure storage account stores Katonic blob data and datasets. 
+ * An `Azure storage account <https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview>`_ stores Katonic blob data and datasets. 
 
- * The kubernetes.io/azure-disk provisioner is used to create persistent volumes for Katonic executions 
+ * The ``kubernetes.io/azure-disk`` provisioner is used to create persistent volumes for Katonic executions 
 
  * The Advanced Azure CNI is used for cluster networking, with network policy enforcement handled by Calico 
 
- * Ingress to the Domino application is handled by an SSL-terminating Application Gateway that points to a Kubernetes load balancer. 
+ * Ingress to the Domino application is handled by an SSL-terminating `Application Gateway <https://docs.microsoft.com/en-us/azure/application-gateway/overview>`_ that points to a Kubernetes load balancer. 
 
- 
+.. _terraform-azure-aks on GitHub: <https://github.com/dominodatalab/terraform-azure-aks>
+
+.. _node pool: <https://docs.microsoft.com/en-us/cli/azure/ext/aks-preview/aks/nodepool?view=azure-cli-latest>
+
+.. _Azure storage account: <https://docs.microsoft.com/en-us/azure/storage/common/storage-account-overview>
+
+.. _Application Gateway: <https://docs.microsoft.com/en-us/azure/application-gateway/overview>
 
 **Resource groups** 
 
@@ -297,9 +303,9 @@ System requirements
 
 **Network plugin** 
 
-Katonic relies on Kubernetes network policies to manage secure communication between pods in the cluster. Network policies are implemented by the network plugin, so your cluster uses a networking solution that supports NetworkPolicy, such as Calico. 
+Katonic relies on `Kubernetes network policies <https://kubernetes.io/docs/concepts/services-networking/network-policies/>`_ to manage secure communication between pods in the cluster. Network policies are implemented by the network plugin, so your cluster uses a networking solution that supports NetworkPolicy, such as Calico. 
 
- 
+.. _Kubernetes network policies: <https://kubernetes.io/docs/concepts/services-networking/network-policies/> 
 
 **Dynamic block storage** 
 
