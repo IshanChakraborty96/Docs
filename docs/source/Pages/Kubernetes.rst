@@ -58,7 +58,8 @@ By default, this storage class is named kdisk.
 
  
 
-In AWS, EBS is used to back this storage class. As per requirement of user we can change the EBS type to io1, gp2, gp3, etc. 
+In AWS, EBS is used to back this storage class. As per requirement of user we can change the EBS type to io1, gp2, gp3, etc.
+
 :: 
   apiVersion: storage.k8s.io/v1 
 
@@ -160,7 +161,7 @@ In on-prem environments, both  kdisk and kfs can be backed by NFS. In some
 OS requirement = ubuntu 20.04 
 
 .. list-table:: Component & Logs
-   :widths: 30 30 30 30 30 30
+   :widths: 20 20 20 20 20 20
    :header-rows: 6
 
    * - Nodes
