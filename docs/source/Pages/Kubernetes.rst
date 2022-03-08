@@ -211,10 +211,126 @@ Requirements checker
 
 You must create a account from Sign up page https://katonic.ai/signup.html
 
-Domino on EKS
+Katonic on EKS
 --------------------
 
-Chat in the `#chat-with-Katonic`chat bot. Katonic bot will respond to anyone in this site.
+ * Kubernetes control moves to the EKS control plane with managed Kubernetes masters 
+
+ * Katonic uses a dedicated Auto Scaling Group (ASG) of EKS workers to host the Katonic platform. 
+
+ * ASGs of EKS workers host elastic compute for katonic executions 
+
+ * AWS S3 is used to store user data, internal Docker registry, backups, and logs 
+
+ * AWS EFS is used to store Katonic File Manager. 
+
+ * The ``kubernetes.io/aws-ebs`` provisioner is used to create persistent volumes for katonic executions. 
+
+ * `Calico <https://docs.aws.amazon.com/eks/latest/userguide/calico.html>`_ is used as a network plugin to support `Kubernetes network policies <https://kubernetes.io/docs/concepts/services-networking/network-policies/>`_. 
+
+ * Katonic cannot be installed on EKS Fargate, since Fargate does not support stateful workloads with persistent volumes. 
+ 
+.. _Calico: <https://docs.aws.amazon.com/eks/latest/userguide/calico.html>
+
+.. _Kubernetes network policies: <https://kubernetes.io/docs/concepts/services-networking/network-policies/>
+
+All nodes in such a deployment have private IPs, and internode traffic is routed by internal load balancer. Nodes in the cluster can optionally have egress to the Internet through a NAT gateway. 
+
+**Setting up an EKS cluster for Katonic**
+This section describes how to configure an Amazon EKS cluster for use with Katonic. Administrators configuring an EKS cluster for Katonic should be familiar with the following AWS services: - Elastic Kubernetes Service (EKS) - Identity and Access Management (IAM) - Virtual Private Cloud (VPC) Networking - Elastic Block Store (EBS) - Elastic File System (EFS) - S3 Object Storage Additionally, a basic understanding of Kubernetes concepts like node pools, network CNI, storage classes, autoscaling, and Docker will be useful when deploying the cluster. 
+
+**Requirement nodes configuration** 
+
+ 1. OS requirement = ubuntu 20.04 
+
+ 2. System requirements 
+
+.. list-table:: OS requirement = ubuntu 20.04 
+   :widths: 60 60 60 60 60 60
+   :header-rows: 1
+
+   * - Nodes
+     - CPU
+     - Memory
+     - OS Drive 
+     - Additional disk
+     - GPU 
+
+   * - Master Nodes 
+     - 4
+     - 8 
+     - >=30Gb 
+     - Not required 
+     - Optional
+   * - Worker Node
+     - 8
+     - 16 
+     - >=30Gb
+     - >=30Gb 
+     - Optional
+
+**Security Considerations** 
+
+You will need to create IAM policies in the AWS console in order to provide an EKS cluster. We recommend following the standard security practice of granting the least privilege when you create IAM policies. Begin with the least privileges and then grant elevated privileges when necessary. `Additional information on the grant least privilege concept is available here <https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege>`_. 
+
+.. _Additional information on the grant least privilege concept is available here: <https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege>
+
+**Service Quotas** 
+
+Amazon maintains default service quotas for each of the services listed above. You can check the `default service quotas <https://docs.aws.amazon.com/general/latest/gr/aws-service-information.html>`_ and manage your quotas by logging in to the `AWS Service Quotas console <https://console.aws.amazon.com/servicequotas/home>`_. 
+
+ .. _default service quotas: <https://docs.aws.amazon.com/general/latest/gr/aws-service-information.html>
+
+ .. _AWS Service Quotas console: <https://console.aws.amazon.com/servicequotas/home>
+
+**VPC networking** 
+
+If you plan to do `VPC peering <https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html>`_ or set up a `site-to-site VPN connection <https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html>`_ to connect your cluster to other resources like data sources or authentication services, be sure to `configure your cluster VPC accordingly <https://eksctl.io/usage/vpc-networking/>`_ to avoid any address space collisions. 
+
+.. _VPC peering: <https://docs.aws.amazon.com/vpc/latest/peering/what-is-vpc-peering.html>
+
+.. _site-to-site VPN connection: <https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html>
+
+.. _configure your cluster VPC accordingly: <https://eksctl.io/usage/vpc-networking/>
+ 
+**Namespaces** 
+
+No namespace configuration is necessary prior to installation. Katonic will create some namespaces in the cluster during installation. 
+
+ 
+
+**Node pools** 
+
+The EKS cluster must have at least two ASGs that produce worker nodes with the following specifications and distinct node labels, and it may include an optional GPU pool: 
+
+The platform ASG can run in 1 availability zone or across 3 availability zones. If you want Katonic to run with some components deployed as highly available `ReplicaSets <https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/>`_ You must use 3 availability zones. Using 2 zones is not supported, as it results in an even number of nodes in a single failure domain. Note that all compute node pools you use should have corresponding ASGs in any AZ used by other node pools. Setting up an isolated node pool in one zone can cause volume affinity issues. 
+
+To run the default and default-gpu pools across multiple availability zones, you will need duplicate ASGs in each zone with the same configuration, including the same labels, to ensure pods are delivered to the zone where the required ephemeral volumes are available. 
+
+The easiest way to get suitable drivers onto GPU nodes is to use the `EKS-optimized AMI distributed by Amazon <https://docs.aws.amazon.com/eks/latest/userguide/gpu-ami.html>`_ as the machine image for the GPU node pool. 
+
+Additional ASGs can be added with distinct Katonicdatalab.com/node-pool labels to make other instance types available for Katonic executions. Read Managing the Katonic compute grid to learn how these different node types are referenced by label from the Katonic application. 
+
+.. _ReplicaSets: <https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/>
+
+.. _EKS-optimized AMI distributed by Amazon: <https://docs.aws.amazon.com/eks/latest/userguide/gpu-ami.html>
+ 
+**Network plugin** 
+
+Katonic relies on `Kubernetes network policies <https://kubernetes.io/docs/concepts/services-networking/network-policies/>`_ to manage secure communication between pods in the cluster. Network policies are implemented by the network plugin, so your cluster uses a networking solution that supports NetworkPolicy, such as `Calico <https://docs.aws.amazon.com/eks/latest/userguide/calico.html>`_. 
+
+Refer to `the AWS documentation on installing Calico <https://docs.aws.amazon.com/eks/latest/userguide/calico.html>`_ for your EKS cluster. 
+
+If you use the `Amazon VPC CNI <https://github.com/aws/amazon-vpc-cni-k8s>`_ for networking, with only Network Policy enforcement components of Calico, you should ensure the subnets you use for your cluster have CIDR ranges of sufficient size, as every deployed pod in the cluster will be assigned an elastic network interface and consume a subnet address. Katonic recommends at least a /23 CIDR for the cluster. 
+
+.. _Kubernetes network policies: <https://kubernetes.io/docs/concepts/services-networking/network-policies/>
+
+.. _Calico: <https://docs.aws.amazon.com/eks/latest/userguide/calico.html>
+
+.. _the AWS documentation on installing Calico: <https://docs.aws.amazon.com/eks/latest/userguide/calico.html>
+
+.. _Amazon VPC CNI: <https://github.com/aws/amazon-vpc-cni-k8s>
+
 
 Domino on GKE
 --------------------
@@ -336,11 +452,143 @@ Domino on OpenShift
 NVIDIA DGX in Domino
 --------------------
 
-Domino in Multi-Tenant Kubernetes Cluster
+Katonic in Multi-Tenancy K8s cluster
 ------------------------------------------------
+**What is Multi-Tenancy?** 
+
+In the context of Kubernetes and Katonic, multi-tenancy means a Kubernetes cluster (hereinafter simply referred to as “cluster” unless otherwise disambiguated) that supports multiple applications and is not dedicated just to Katonic (i.e., each application is an individual cluster tenant). Katonic supports multi-tenant clusters (or multi-tenancy) by adhering to a set of principles that ensure it does not interfere with other applications or other cluster-wide services that may exist. This also translates to the installation of Katonic into a multi-tenant cluster, assuming typical best practice multi-tenancy constraints.
+
+**Multi-Tenancy Use Cases** 
+
+ * On-Premise and Capacity Constrained Environments. In this case, you are trying to maximize the utilization of limited, often physical, infrastructure. 
+
+ * Minimize Administration Costs. 
+
+**Multi-Tenancy Risks** 
+
+ * Shared Resource Loading. Multi-tenant clusters still share common resources, such as the Kubernetes control plane (e.g., API server), DNS, and ingress. This results in how other applications will impact Katonic and vice versa. 
+
+ * Imperfect Compute Isolation and Predictability.
+
+   * Unless you restrict node-level usage for applications, there is no isolation at the node level. Hence, Katonic Runs will potentially share compute with other applications.  
+
+   * Ill-behaved tenants could impact Katonic Runs by hogging resources causing drops in resources available to Katonic or in the worst case, bring down the node.  
+
+   * In most cases, this will probably not happen. However, if particular Katonic Runs need predictability or strict isolation, this may be an issue.  
+
+   * You can reserve nodes just for the Katonic application in your cluster, but this does drive down the argument for multi-tenancy. 
+
+ * Increased Security Complexity and Risk. Cluster administrators will likely have to manage a larger, or finer grain, set of RBAC objects and rules. Shared resources and node-level coupling exposes an additional attack surface for any malicious tenants. 
+
+ * Shared Cluster Maintenance. Any cluster maintenance will cause all applications to be subject to the same maintenance window. Hence, if the cluster maintenance is due to a particular application, all applications will be subjected to the same down time even though they do not require that maintenance. 
+
+**Requirement nodes configuration**
+
+ 1. OS requirement = ubuntu 20.04 
+
+ 2. System requirements 
+
+.. list-table:: OS requirement = ubuntu 20.04 
+   :widths: 60 60 60 60 60 60
+   :header-rows: 1
+
+   * - Nodes
+     - CPU
+     - Memory
+     - OS Drive 
+     - Additional disk
+     - GPU 
+
+   * - Master Nodes 
+     - 4
+     - 8 
+     - >=30Gb 
+     - Not required 
+     - Optional 
+   * - Worker Node
+     - 8
+     - 16 
+     - >=30Gb
+     - >=30Gb 
+     - Optional
+
+**Known Considerations** 
+
+**Files** 
+
+If two or more applications attempt to map a file from the “host path” and read or modify that file, then problems can arise. The use of host paths is frowned upon except for monitoring software and currently, the only place that Katonic requires a host mount is for fluentd to monitor container logs. As this is standard practice for `fluentd <https://www.fluentd.org/>`_ and an explicitly read-only operation, we will not interfere with other applications. 
+
+.. _fluentd: <https://www.fluentd.org/> 
+
+**System Settings** 
+
+Applications that require system settings to be modified for performance or reliability can interfere with or overwrite other applications’ settings. 
+
+**Elasticsearch** 
+
+Currently, the only service that requires an updated setting for Katonic is `Elasticsearch <https://www.elastic.co/elasticsearch/>`_ and this is currently disable-able if the cluster operators have an acceptable setting already. ``vm.map_max_count`` needs to be set for Elasticsearch to work; This is not a Katonic requirement, but a mandatory `requirement from the upstream Elasticsearch Helm chart <https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html#vm-max-map-count>`_. 
+
+.. _Elasticsearch: <https://www.elastic.co/elasticsearch/> 
+
+.. _requirement from the upstream Elasticsearch Helm chart: <https://www.elastic.co/guide/en/elasticsearch/reference/current/vm-max-map-count.html#vm-max-map-count> 
+
+**GPU Support** 
+
+We deploy a number of services in order to properly expose GPUs for Katonic. In a multi-tenant environment, we would generally ask cluster administrators to manage these themselves, and we can disable our services via our installer. 
+
+**DaemonSets** 
+
+We currently deploy four `DaemonSets <https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/>`_ for standard install. 
+
+ 1. ``docker-registry`` **Certificate Management**. This allows the underlying Docker daemon to pull from the Katonic deployed Docker registry, which backs `Katonic Compute Environments <https://docs.dominodatalab.com/en/latest/reference/environments/Video_introduction_to_Domino_Environments.html>`_. The service mounts the underlying ``/etc/docker/certs.d`` directory and creates additional files to support the Katonic Docker registry. This is not something that can necessarily interfere with other applications but may cause concern from cluster operators and any host-level operation is inherently risky. 
+
+ 2. ``image-cache-agent``. This handle look-ahead caching and image management for the cluster Docker daemon, allowing for shorter Katonic execution start-up times. This should not be deployed on non-Katonic nodes. 
+
+ 3. ``fluentd``. This monitors logs from the User’s compute containers that pushed through a system to feed into the Jobs and Workspaces dashboard. See Files. 
+
+ 4. ``prometheus-node-exporter``. This monitors node metrics, such as network statistics, and it is polled by the Katonic deployed Prometheus server. This can be disabled with the ``monitoring.prometheus_metrics flag``. 
+
+As of Katonic 4.2, all DaemonSets can be limited by a ``nodeSelector`` flag which will cause the pods to only be scheduled on a subset of nodes with a specific label. Depending on the cluster operator’s needs, we will require a categorical label on nodes for Katonic’s use that we could target for deployment.  
+
+(Add some daemonsets for ceph) 
+
+**Non-Namespaced Resources** 
+
+**ClusterRoles** 
+
+Katonic creates separate namespaces for its services and requires communication between these namespaces. Katonic creates a number of ClusterRoles and bindings that control access its namespaces or into global resources. As of Katonic, all Katonic-created ClusterRoles are prefixed by the deployment name, which is specified by the name ``key`` in the ``Katonic.yml`` configuration file  
+
+**Pod Security Policies** 
+
+By default, Katonic uses `pod security policies <https://kubernetes.io/docs/concepts/policy/pod-security-policy>`_ (PSP) to ensure that, by default, pods cannot use system-level permissions that they have not been granted. Unfortunately, PSPs are globally-namespaced so they too have been prefixed with the deployment name. Applications cannot use these PSPs without explicitly being granted access through a Role or Cluster Role. 
+
+**Custom Resource Definitions** 
+
+Katonic does not make extensive use of `Custom Resource Definitions <https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/>`_ (CRDs) except for the on-demand spark feature in 4.x. Our CRD is named uniquely, ``sparkclusters.apps.Katonicdatalab.com`` and should not interfere with other applications. 
+
+Persistent Volumes 
+
+Katonic uses `persistent volumes <https://kubernetes.io/docs/concepts/storage/persistent-volumes/>`_ extensively throughout the system to ensure that data storage is abstracted and permanent. With the exception of two shared storage mounts, which both incorporate namespaces to ensure uniqueness, we strictly use dynamic volume creation through `persistent volume claims <https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims>`_ which dynamically allocates a name that will not conflict with any other applications. 
+
+.. _DaemonSets: <https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/> 
+
+.. _Katonic Compute Environments: <https://docs.dominodatalab.com/en/latest/reference/environments/Video_introduction_to_Domino_Environments.html> 
+
+.. _pod security policies: <https://kubernetes.io/docs/concepts/policy/pod-security-policy> 
+
+.. _Custom Resource Definitions: <https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/> 
+
+.. _persistent volumes: <https://kubernetes.io/docs/concepts/storage/persistent-volumes/> 
+
+.. _persistent volume claims: <https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims> 
 
 Encryption in transit
 ------------------------
 
 Compatibility
 ---------------
+
+Requirement Checker 
+---------------
+
+We have our own script that can check the system's requirements. That script will run on your system and check the requirements for hardware and packages that Katonic platform requires. 
