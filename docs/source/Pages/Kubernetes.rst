@@ -206,10 +206,10 @@ We do understand that certain enterprise policies mandate the use of corporate p
 
 .. _identity and X.509 certificate management: <https://istio.io/latest/docs/concepts/security/#pki>
 
-Requirements checker
-----------------------
+Requirement Checker 
+---------------------
 
-You must create a account from Sign up page https://katonic.ai/signup.html
+We have our own script that can check the system's requirements. That script will run on your system and check the requirements for hardware and packages that Katonic platform requires. 
 
 Katonic on EKS
 --------------------
@@ -587,8 +587,3 @@ Encryption in transit
 
 Compatibility
 ---------------
-
-Requirement Checker 
----------------
-
-We have our own script that can check the system's requirements. That script will run on your system and check the requirements for hardware and packages that Katonic platform requires. 
