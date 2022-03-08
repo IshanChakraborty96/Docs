@@ -237,6 +237,7 @@ Katonic on EKS
 All nodes in such a deployment have private IPs, and internode traffic is routed by internal load balancer. Nodes in the cluster can optionally have egress to the Internet through a NAT gateway. 
 
 **Setting up an EKS cluster for Katonic**
+
 This section describes how to configure an Amazon EKS cluster for use with Katonic. Administrators configuring an EKS cluster for Katonic should be familiar with the following AWS services: - Elastic Kubernetes Service (EKS) - Identity and Access Management (IAM) - Virtual Private Cloud (VPC) Networking - Elastic Block Store (EBS) - Elastic File System (EFS) - S3 Object Storage Additionally, a basic understanding of Kubernetes concepts like node pools, network CNI, storage classes, autoscaling, and Docker will be useful when deploying the cluster. 
 
 **Requirement nodes configuration** 
