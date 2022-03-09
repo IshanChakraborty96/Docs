@@ -48,13 +48,7 @@ master_doc = 'index'
 
 # -- Options for HTML output
 
-# import sphinx_theme_pd
-#xclude_patterns = ["_build"]
-#html_theme = "insegel"
-#html_theme_options = {"navigation_depth": 2}
-
 html_logo = "Klogo.png"
-
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
