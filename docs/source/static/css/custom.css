@@ -1,257 +1,673 @@
-{# TEMPLATE VAR SETTINGS #}
-{%- set url_root = pathto('', 1) %}
-{%- if url_root == '#' %}{% set url_root = '' %}{% endif %}
-{%- if not embedded and docstitle %}
-  {%- set titlesuffix = " &mdash; "|safe + docstitle|e %}
-{%- else %}
-  {%- set titlesuffix = "" %}
-{%- endif %}
-{%- set lang_attr = 'en' if language == None else (language | replace('_', '-')) %}
-{%- set sphinx_writer = 'writer-html5' if html5_doctype else 'writer-html4' -%}
+@import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,400,500");
+@import url("https://fonts.googleapis.com/css?family=Inconsolata");
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
 
-{# Build sphinx_version_info tuple from sphinx_version string in pure Jinja #}
-{%- set (_ver_major, _ver_minor, _ver_bugfix) = sphinx_version.split('.') | map('int') -%}
-{%- set sphinx_version_info = (_ver_major, _ver_minor, _ver_bugfix) -%}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
 
-<!DOCTYPE html>
-<html class="{{ sphinx_writer }}" lang="{{ lang_attr }}" >
-<head>
-  <meta charset="utf-8" />
-  {{- metatags }}
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  {%- block htmltitle %}
-  <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
-  {%- endblock -%}
+body {
+  line-height: 1;
+}
 
-  {#- CSS #}
-  {%- if sphinx_version_info < (4, 0) -%}
-    <link rel="stylesheet" href="{{ pathto('_static/' + style, 1) }}" type="text/css" />
-    <link rel="stylesheet" href="{{ pathto('_static/pygments.css', 1) }}" type="text/css" />
-  {%- endif %}
-  {%- for css in css_files %}
-    {%- if css|attr("rel") %}
-      <link rel="{{ css.rel }}" href="{{ pathto(css.filename, 1) }}" type="text/css"{% if css.title is not none %} title="{{ css.title }}"{% endif %} />
-    {%- else %}
-      <link rel="stylesheet" href="{{ pathto(css, 1) }}" type="text/css" />
-    {%- endif %}
-  {%- endfor %}
+ol, ul {
+  list-style: none;
+}
 
-  {%- for cssfile in extra_css_files %}
-    <link rel="stylesheet" href="{{ pathto(cssfile, 1) }}" type="text/css" />
-  {%- endfor -%}
+blockquote, q {
+  quotes: none;
+}
 
-  {#- FAVICON #}
-  {%- if favicon %}
-    {%- if sphinx_version_info < (4, 0) -%}
-    <link rel="shortcut icon" href="{{ pathto('_static/' + favicon, 1) }}"/>
-    {%- else %}
-    <link rel="shortcut icon" href="{{ favicon_url }}"/>
-    {%- endif %}
-  {%- endif -%}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
 
-  {#- CANONICAL URL (deprecated) #}
-  {%- if theme_canonical_url and not pageurl %}
-    <link rel="canonical" href="{{ theme_canonical_url }}{{ pagename }}.html"/>
-  {%- endif -%}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
 
-  {#- CANONICAL URL #}
-  {%- if pageurl %}
-    <link rel="canonical" href="{{ pageurl|e }}" />
-  {%- endif -%}
+body {
+  background: #F2F2F2;
+  font-family: "IBM Plex Sans", serif;
+  line-height: 1.5;
+  font-size: 18px;
+}
+@media screen and (max-width: 880px) {
+  body {
+    background: #F2F2F2;
+  }
+}
 
-  {#- JAVASCRIPTS #}
-  {%- block scripts %}
-  <!--[if lt IE 9]>
-    <script src="{{ pathto('_static/js/html5shiv.min.js', 1) }}"></script>
-  <![endif]-->
-  {%- if not embedded %}
-  {# XXX Sphinx 1.8.0 made this an external js-file, quick fix until we refactor the template to inherert more blocks directly from sphinx #}
-    {%- if sphinx_version_info >= (1, 8) -%}
-      {%- if sphinx_version_info < (4, 0) -%}
-      <script id="documentation_options" data-url_root="{{ url_root }}" src="{{ pathto('_static/documentation_options.js', 1) }}"></script>
-      {%- endif -%}
-      {%- for scriptfile in script_files %}
-        {{ js_tag(scriptfile) }}
-      {%- endfor %}
-    {%- else %}
-      <script>
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'{{ url_root }}',
-              VERSION:'{{ release|e }}',
-              LANGUAGE:'{{ language }}',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'{{ '' if no_search_suffix else file_suffix }}',
-              HAS_SOURCE:  {{ has_source|lower }},
-              SOURCELINK_SUFFIX: '{{ sourcelink_suffix }}'
-          };
-      </script>
-      {%- for scriptfile in script_files %}
-        <script src="{{ pathto(scriptfile, 1) }}"></script>
-      {%- endfor %}
-    {%- endif %}
-    <script src="{{ pathto('_static/js/theme.js', 1) }}"></script>
+h1, h2, h3, h4, h5 {
+  font-weight: 300;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
 
-    {#- OPENSEARCH #}
-    {%- if use_opensearch %}
-    <link rel="search" type="application/opensearchdescription+xml"
-          title="{% trans docstitle=docstitle|e %}Search within {{ docstitle }}{% endtrans %}"
-          href="{{ pathto('_static/opensearch.xml', 1) }}"/>
-    {%- endif %}
-  {%- endif %}
-  {%- endblock %}
+h1 {
+  font-size: 2em;
+}
 
-  {%- block linktags %}
-    {%- if hasdoc('about') %}
-    <link rel="author" title="{{ _('About these documents') }}" href="{{ pathto('about') }}" />
-    {%- endif %}
-    {%- if hasdoc('genindex') %}
-    <link rel="index" title="{{ _('Index') }}" href="{{ pathto('genindex') }}" />
-    {%- endif %}
-    {%- if hasdoc('search') %}
-    <link rel="search" title="{{ _('Search') }}" href="{{ pathto('search') }}" />
-    {%- endif %}
-    {%- if hasdoc('copyright') %}
-    <link rel="copyright" title="{{ _('Copyright') }}" href="{{ pathto('copyright') }}" />
-    {%- endif %}
-    {%- if next %}
-    <link rel="next" title="{{ next.title|striptags|e }}" href="{{ next.link|e }}" />
-    {%- endif %}
-    {%- if prev %}
-    <link rel="prev" title="{{ prev.title|striptags|e }}" href="{{ prev.link|e }}" />
-    {%- endif %}
-  {%- endblock %}
-  {%- block extrahead %} {% endblock %}
-</head>
+h2 {
+  font-size: 1.5em;
+}
 
-<body class="wy-body-for-nav">
+h3 {
+  font-size: 1.35em;
+}
 
-  {%- block extrabody %} {% endblock %}
-  <div class="wy-grid-for-nav">
-    {#- SIDE NAV, TOGGLES ON MOBILE #}
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" {% if theme_style_nav_header_background %} style="background: {{theme_style_nav_header_background}}" {% endif %}>
-          {%- block sidebartitle %}
+a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.25s;
+}
+a.headerlink {
+  border-bottom: 0;
+}
 
-          {%- if logo and theme_logo_only %}
-            <a href="{{ pathto(master_doc) }}">
-          {%- else %}
-            <a href="{{ pathto(master_doc) }}" class="icon icon-home"> {{ project }}
-          {%- endif %}
+a:hover:not(.headerlink) {
+  border-bottom: 2px solid #2D2D2D;
+}
 
-          {%- if logo %}
-            {#- Not strictly valid HTML, but it's the only way to display/scale
-                it properly, without weird scripting or heaps of work
-            #}
-            {%- if sphinx_version_info < (4, 0) -%}
-            <img src="{{ pathto('_static/' + logo, 1) }}" class="logo" alt="{{ _('Logo') }}"/>
-            {%- else %}
-            <img src="{{ logo_url }}" class="logo" alt="{{ _('Logo') }}"/>
-            {%- endif %}
-          {%- endif %}
-          </a>
+p {
+  margin-bottom: 1em;
+}
 
-          {%- if theme_display_version %}
-            {%- set nav_version = version %}
-            {%- if READTHEDOCS and current_version %}
-              {%- set nav_version = current_version %}
-            {%- endif %}
-            {%- if nav_version %}
-              <div class="version">
-                {{ nav_version }}
-              </div>
-            {%- endif %}
-          {%- endif %}
+em {
+  font-style: italic;
+}
 
-          {%- include "searchbox.html" %}
+strong {
+  font-weight: bold;
+}
 
-          {%- endblock %}
-        </div>
+li {
+  display: list-item;
+}
 
-        {%- block navigation %}
-        {#- Translators: This is an ARIA section label for the main navigation menu -#}
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="{{ _('Navigation menu') }}">
-          {%- block menu %}
-            {%- set toctree = toctree(maxdepth=theme_navigation_depth|int,
-                                      collapse=theme_collapse_navigation|tobool,
-                                      includehidden=theme_includehidden|tobool,
-                                      titles_only=theme_titles_only|tobool) %}
-            {%- if toctree %}
-              {{ toctree }}
-            {%- else %}
-              <!-- Local TOC -->
-              <div class="local-toc">{{ toc }}</div>
-            {%- endif %}
-          {%- endblock %}
-        </div>
-        {%- endblock %}
-      </div>
-    </nav>
+ol {
+  display: block;
+  list-style-type: decimal;
+  padding-left: 40px;
+}
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+ul {
+  display: block;
+  list-style-type: disc;
+  padding-left: 25px;
+}
 
-      {#- MOBILE NAV, TRIGGLES SIDE NAV ON TOGGLE #}
-      {#- Translators: This is an ARIA section label for the navigation menu that is visible when viewing the page on mobile devices -#}
-      <nav class="wy-nav-top" aria-label="{{ _('Mobile navigation menu') }}" {% if theme_style_nav_header_background %} style="background: {{theme_style_nav_header_background}}" {% endif %}>
-        {%- block mobile_nav %}
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="{{ pathto(master_doc) }}">{{ project }}</a>
-        {%- endblock %}
-      </nav>
+ul ul {
+  list-style-type: circle;
+}
 
-      <div class="wy-nav-content">
-      {%- block content %}
-        {%- if theme_style_external_links|tobool %}
-        <div class="rst-content style-external-links">
-        {%- else %}
-        <div class="rst-content">
-        {%- endif %}
-          {% include "breadcrumbs.html" %}
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-          {%- block document %}
-           <div itemprop="articleBody">
-             {% block body %}{% endblock %}
-           </div>
-           {%- if self.comments()|trim %}
-             <div class="articleComments">
-               {%- block comments %}{% endblock %}
-             </div>
-           {%- endif%}
-          </div>
-          {%- endblock %}
-          {% include "footer.html" %}
-        </div>
-      {%- endblock %}
-      </div>
-    </section>
-  </div>
-  {% include "versions.html" -%}
+pre {
+  font-family: "Inconsolata", monospace;
+  background-color: #DADADA;
+  color: #2D2D2D;
+  padding: 2em;
+  margin-bottom: 1em;
+  overflow-x: auto;
+}
 
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable({{ 'true' if theme_sticky_navigation|tobool else 'false' }});
-      });
-  </script>
+img {
+  max-width: 100%;
+}
 
-  {#- Do not conflict with RTD insertion of analytics script #}
-  {%- if not READTHEDOCS %}
-    {%- if theme_analytics_id %}
-    <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ theme_analytics_id }}"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+table {
+  margin: 0 0 1.5em;
+  width: 100%;
+  max-width: 100%;
+}
 
-      gtag('config', '{{ theme_analytics_id }}', {
-          'anonymize_ip': {{ 'true' if theme_analytics_anonymize_ip|tobool else 'false' }},
-      });
-    </script>
+table thead th {
+  font-weight: bold;
+  text-align: left;
+}
 
-    {%- endif %}
-  {%- endif %}
+table th, table td {
+  padding: 0.5em;
+}
 
-  {%- block footer %} {% endblock %}
+table tbody tr:nth-of-type(odd) {
+  background-color: #DADADA;
+  color: #2D2D2D;
+}
 
-</body>
-</html>
+pre code {
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+code {
+  max-width: 100%;
+  padding: 2px;
+  font-family: "Inconsolata", monospace;
+  background-color: #DADADA;
+  color: #2D2D2D;
+}
+
+table tbody tr:nth-of-type(odd) code {
+  background-color: #F2F2F2;
+  color: #2D2D2D;
+}
+
+#insegel-container {
+  padding-left: 1em;
+  padding-right: 1em;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media screen and (max-width: 880px) {
+  #insegel-container {
+    padding: 0;
+  }
+}
+
+#content-container {
+  display: flex;
+  width: 100%;
+  flex-direction: row-reverse;
+}
+@media screen and (max-width: 880px) {
+  #content-container {
+    display: block;
+  }
+}
+
+#main-content-container {
+  flex: 1;
+  width: 0;
+}
+@media screen and (max-width: 880px) {
+  #main-content-container {
+    width: inherit;
+  }
+}
+
+#main-content-container, #side-menu-container {
+  background-color: #F2F2F2;
+}
+
+#main-content {
+  padding: 2em;
+}
+#main-content .figure {
+  text-align: center;
+}
+#main-content h1:first-of-type {
+  margin-top: 0;
+}
+
+#side-menu-container {
+  width: 300px;
+  margin-right: 2em;
+  position: relative;
+}
+#side-menu-container #side-menu {
+  padding: 2em;
+  margin-bottom: 5em;
+}
+#side-menu-container #rtd-credit {
+  padding: 2em;
+  position: absolute;
+  bottom: 0;
+}
+@media screen and (max-width: 1000px) {
+  #side-menu-container {
+    width: 250px;
+  }
+}
+@media screen and (max-width: 880px) {
+  #side-menu-container {
+    margin-right: 0;
+    width: 100%;
+    display: none;
+  }
+  #side-menu-container #side-menu {
+    margin-bottom: 0;
+  }
+  #side-menu-container #rtd-credit {
+    position: relative;
+  }
+}
+
+a.headerlink {
+  display: none;
+  visibility: hidden;
+}
+a.headerlink:after {
+  visibility: visible;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\f0c1";
+  display: inline-block;
+  opacity: 0.6;
+}
+
+h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .headerlink, h5:hover .headerlink, h6:hover .headerlink, dl dt:hover .headerlink, p.caption:hover .headerlink {
+  display: inline-block;
+}
+
+#side-menu .local-toc ul {
+  text-transform: uppercase;
+  font-weight: 300;
+  padding-left: 0px;
+  list-style-type: none;
+}
+#side-menu .local-toc ul ul {
+  margin-top: 1em;
+  text-transform: none;
+  font-family: "IBM Plex Sans", serif;
+}
+#side-menu .local-toc ul ul a {
+  font-weight: 400;
+}
+
+#side-menu .caption {
+  opacity: 0.7;
+  font-weight: 300;
+  list-style-type: none;
+  margin-bottom: 0px;
+}
+#side-menu ul {
+  margin-bottom: 1em;
+  text-transform: none;
+  list-style-type: none;
+  padding-left: 0px;
+}
+#side-menu .toctree-l2 > a {
+  font-weight: normal;
+  margin-left: 1em;
+}
+#side-menu .toctree-l3 > a, #side-menu .toctree-l4 > a, #side-menu .toctree-l5 > a {
+  font-weight: normal;
+  opacity: 0.7;
+  margin-left: 2em;
+}
+
+#search {
+  padding: 2em;
+}
+#search input[type=text] {
+  width: 100%;
+  font-weight: 300;
+  font-size: 2em;
+  box-sizing: border-box;
+  border: none;
+  background-color: #F2F2F2;
+  color: #2D2D2D;
+  font-family: "IBM Plex Sans", serif;
+}
+#search input[type=text]::placeholder {
+  color: #a5a5a5;
+  font-weight: 300;
+}
+
+.admonition {
+  padding: 2em;
+  margin-bottom: 2em;
+  background-color: #2D2D2D;
+  color: #EBEBEB;
+}
+.admonition .admonition-title {
+  font-weight: 500;
+}
+.admonition.warning, .admonition.caution, .admonition.danger, .admonition.error {
+  background-color: #CD4949;
+  color: #2D2D2D;
+}
+.admonition.attention, .admonition.important {
+  background-color: #49CDAC;
+  color: #2D2D2D;
+}
+
+.injected {
+  display: none;
+}
+
+.toctree-wrapper {
+  margin-bottom: 1em;
+}
+.toctree-wrapper .caption-text {
+  font-weight: 300;
+  opacity: 0.5;
+}
+
+.figure {
+  margin-bottom: 1em;
+}
+
+header {
+  padding-top: 2em;
+  display: flex;
+}
+header #logo-container {
+  width: 300px;
+  padding-left: 2em;
+  display: flex;
+  align-items: center;
+}
+@media screen and (max-width: 1000px) {
+  header #logo-container {
+    width: 250px;
+  }
+}
+@media screen and (max-width: 880px) {
+  header #logo-container {
+    width: 100%;
+    padding: 0;
+    display: block;
+  }
+}
+header #logo-container img {
+  height: 60px;
+}
+header #project-container {
+  padding: 0em 2em;
+}
+@media screen and (max-width: 880px) {
+  header {
+    text-align: center;
+    display: block;
+  }
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  margin: 2em;
+}
+footer #footer-info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+footer a#menu-toggle {
+  display: none;
+  opacity: 1;
+  font-size: 32px;
+  cursor: pointer;
+}
+footer a#menu-toggle.toggled {
+  color: #DADADA;
+}
+footer ul#build-details {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+footer ul#build-details li {
+  margin-right: 0.25em;
+}
+footer ul#build-details li:not(:last-child):after {
+  content: " // ";
+  margin-left: 0;
+}
+@media screen and (max-width: 880px) {
+  footer {
+    align-items: center;
+  }
+  footer #footer-info {
+    display: block;
+  }
+  footer a#menu-toggle {
+    display: block;
+  }
+}
+
+#search-results ul.search {
+  padding-left: 0px;
+  list-style-type: none;
+}
+#search-results ul.search li {
+  margin-bottom: 2em;
+}
+#search-results ul.search .context {
+  margin-top: 1em;
+  white-space: pre-line;
+  background-color: #DADADA;
+  color: #2D2D2D;
+  padding: 2em;
+}
+#search-results ul.search .context .highlighted {
+  font-weight: 800;
+}
+
+dl:not(.docutils) dd {
+  margin-left: 2em;
+}
+dl:not(.docutils) dd dl {
+  margin-bottom: 1em;
+}
+dl:not(.docutils) dt {
+  background: #2D2D2D;
+  color: #EBEBEB;
+  padding: 0.5em;
+  padding-right: 0.75em;
+  margin-bottom: 1em;
+  display: inline-block;
+}
+dl:not(.docutils) dt .property {
+  margin-right: 0.5em;
+}
+dl:not(.docutils) dt code {
+  background: #2D2D2D;
+  color: #EBEBEB;
+  font-weight: bold;
+  padding: 0px;
+}
+dl:not(.docutils) dl dt {
+  background: #DADADA;
+  color: #2D2D2D;
+  border-left: 0.25em solid #2D2D2D;
+}
+dl:not(.docutils) dl dt code {
+  background: #DADADA;
+  color: #2D2D2D;
+}
+
+.c {
+  font-style: italic;
+}
+
+/* Comment */
+.err {
+  border: 1px solid #FF0000;
+}
+
+/* Error */
+.k {
+  font-weight: bold;
+}
+
+/* Keyword */
+.cm {
+  font-style: italic;
+}
+
+/* Comment.Multiline */
+.c1 {
+  font-style: italic;
+}
+
+/* Comment.Single */
+.cs {
+  font-style: italic;
+}
+
+/* Comment.Special */
+.ge {
+  font-style: italic;
+}
+
+/* Generic.Emph */
+.gh {
+  font-weight: bold;
+}
+
+/* Generic.Heading */
+.gp {
+  font-weight: bold;
+}
+
+/* Generic.Prompt */
+.gs {
+  font-weight: bold;
+}
+
+/* Generic.Strong */
+.gu {
+  font-weight: bold;
+}
+
+/* Generic.Subheading */
+.kc {
+  font-weight: bold;
+}
+
+/* Keyword.Constant */
+.kd {
+  font-weight: bold;
+}
+
+/* Keyword.Declaration */
+.kn {
+  font-weight: bold;
+}
+
+/* Keyword.Namespace */
+.kr {
+  font-weight: bold;
+}
+
+/* Keyword.Reserved */
+.s {
+  font-style: italic;
+}
+
+/* Literal.String */
+.nc {
+  font-weight: bold;
+}
+
+/* Name.Class */
+.ni {
+  font-weight: bold;
+}
+
+/* Name.Entity */
+.ne {
+  font-weight: bold;
+}
+
+/* Name.Exception */
+.nn {
+  font-weight: bold;
+}
+
+/* Name.Namespace */
+.nt {
+  font-weight: bold;
+}
+
+/* Name.Tag */
+.ow {
+  font-weight: bold;
+}
+
+/* Operator.Word */
+.sb {
+  font-style: italic;
+}
+
+/* Literal.String.Backtick */
+.sc {
+  font-style: italic;
+}
+
+/* Literal.String.Char */
+.sd {
+  font-style: italic;
+}
+
+/* Literal.String.Doc */
+.s2 {
+  font-style: italic;
+}
+
+/* Literal.String.Double */
+.se {
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* Literal.String.Escape */
+.sh {
+  font-style: italic;
+}
+
+/* Literal.String.Heredoc */
+.si {
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* Literal.String.Interpol */
+.sx {
+  font-style: italic;
+}
+
+/* Literal.String.Other */
+.sr {
+  font-style: italic;
+}
+
+/* Literal.String.Regex */
+.s1 {
+  font-style: italic;
+}
+
+/* Literal.String.Single */
+.ss {
+  font-style: italic;
+}
+
+/* Literal.String.Symbol */
+
+/*# sourceMappingURL=insegel.css.map */
