@@ -4,7 +4,7 @@ from datetime import datetime
 # -- Project information
 
 project = 'Katonic.ai'
-copyright = '2020, Katonic.ai'
+copyright = '2021, Katonic.ai'
 author = 'Katonic.ai'
 
 release = '1.0.0'
@@ -53,7 +53,7 @@ master_doc = 'index'
 #html_theme = "insegel"
 #html_theme_options = {"navigation_depth": 2}
 
-html_logo = "Background_Vertical_Logo-removebg-preview.png"
+html_logo = "Logo.png"
 
 
 # -- Options for EPUB output
