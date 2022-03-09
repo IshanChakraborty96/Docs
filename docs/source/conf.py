@@ -48,7 +48,7 @@ master_doc = 'index'
 
 # -- Options for HTML output
 
-html_logo = "Klogo.png"
+html_logo = "../source/Logo.png"
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
