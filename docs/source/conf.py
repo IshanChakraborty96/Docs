@@ -44,9 +44,9 @@ html_static_path = ['_static']
 
 # These paths are either relative to html_static_path
 # or fully qualified paths (eg. https://...)
-html_css_files = [
-    "../source/_static/css/custom.css",
-]
+#html_css_files = [
+#    "../source/_static/css/custom.css",
+#]
 
 html_theme = "sphinx_rtd_theme"
 html_theme_path = ["_themes", ]
