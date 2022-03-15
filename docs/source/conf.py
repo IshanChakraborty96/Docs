@@ -48,6 +48,9 @@ html_css_files = [
     "../source/_static/css/custom.css",
 ]
 
+html_theme = "sphinx_rtd_theme"
+html_theme_path = ["_themes", ]
+
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
