@@ -51,7 +51,7 @@ html_static_path = ['_static']
 html_theme = "sphinx_rtd_theme"
 #html_theme_path = ["_themes", ]
 
-html_style = 'css/katonictheme.css'
+#html_style = 'css/katonictheme.css'
 #def setup(app):
 #    app.add_css_file('katonictheme.css')
 
