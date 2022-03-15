@@ -52,8 +52,8 @@ html_theme = "sphinx_rtd_theme"
 #html_theme_path = ["_themes", ]
 
 #html_style = 'css/katonictheme.css'
-#def setup(app):
-#    app.add_css_file('katonictheme.css')
+def setup(app):
+    app.add_css_file('katonictheme.css')
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
